@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!-- 
+design by airasz
+-->
+<html>
+
+<head>
+  <title>COFFEE brew</title>
+  <link rel="shortcut icon" type="image/jpg" href="https://icons8.com/icon/tPtmOacA9TwY/timer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <!-- <link rel="script" type="text/js" href="app.js"> -->
+  <script src="app.js"></script>
+</head>
+
+<body onload="loadonce()">
+
+  <div class="card_switch" style="max-width: 28rem;">
+    <h2>smart brew scale</h2>
+    <div id="info" style="min-height: 1cm;margin-bottom: 4mm;">
+    </div>
+    <div class="card-body">
+
+      <div class="tab" style="background-color:  rgb(243, 243, 243);">
+        <button class="tablinks" onclick="openTab(event, 'Action')" id="0">HOME</button>
+        <button class="tablinks" onclick="openTab(event, 'port')" id="1">POURING SETUP</button>
+        <button class="tablinks" onclick="openTab(event, 'setup')" id="2">SETUP</button>
+      </div>
+
+
+      <!--  ===============TAB HOME============= -->
+      <div id="Action" class="tabcontent">
+        <button id="btnabort" class="button1" onclick="abort()" style="display: block;">abort</button>
+        <p4 style="margin-top:1cm;">
+          <span class="light-labels">timer: </span>
+          <span id="light" style="color: rgb(43, 42, 42);font-size: 72px;font-weight: lighter;">%LIGHT%</span>
+          <!-- <sup class="units">&deg;C</sup> -->
+        </p4><br>
+
+        <button id="btntare" class="button1" onclick="tare()">TARE</button>
+        <p4>
+          <span class="mist-labels">weight: </span><br>
+          <span id="mist" style="color: rgb(43, 42, 42);font-weight: lighter;">%MIST%</span>
+          <span style="color: grey;font-size: large;font-weight: lighter;">%wgh%</span>
+          <!-- <sup class="units">&deg;C</sup> -->
+        </p4><br>
+        <!-- <h2 id="counterint" style="font-size: 20px;" class="card-title">°C</h2> -->
+      </div>
+
+      <!--  ===============TAB SETUP============= -->
+      <div id="port" class="tabcontent">
+
+        <div id="port1" class="tabcontents" style="display: block;">
+          <!-- /setrmp1?rmp1=rm11 -->
+
+          <div id="port_1">
+            <p5 id="p_step0" style="display: none;">
+              <form action="/dose/get">
+                <p3 id="title4" style="background-color: rgb(0, 132, 255);color: rgb(255, 255, 255);">set ratio</p3>
+                COFFEE (grams) : <input type="text" pattern="[0-9]*" inputmode="numeric" name="cf_t"
+                  placeholder="%cf_t%"><br>
+                WATER (mililitters): <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt_t"
+                  placeholder="%wt_t%"><br>
+                <input id="rm144" type="submit" value="NEXT"
+                  style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+              </form>
+            </p5>
+            <form action="/setpm" id="p_step1" style="display: none;">
+              <p4 id="rmode1" style="color:rgb(15, 15, 15);"> <strong>pour method </strong></p4>
+              <select name="pm1" id="pm" onchange="methode()" style="border-color: blue;">
+
+                <option value="pm0">select....</option>
+                <option value="pm1">Aero press</option>
+                <option value="pm2">V60</option>
+                <option value="pm3">v60 Veronica Galova</option>
+                <option value="pm4">Chemex</option>
+                <option value="pm5">manual set</option>
+              </select>
+              <br><br>
+              <input type="submit" value="NEXT" style="color: blue;">
+            </form>
+            <p5 id="p_step2" style="display: none;">
+              <form action="/seq/get">
+                <h4 id="header2" style="background-color: rgb(255, 230, 0);color: black;">set brewing sequence</h4>
+                <p3 id="title1" style="background-color: rgb(255, 230, 0);color: black;">water (in mililiter)</p3>
+                <div id="w_sq">
+                  <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt1" placeholder="%wt1%"
+                    style="color:black">
+                  <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt2" placeholder="%wt2%"
+                    style="color:black">
+                  <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt3" placeholder="%wt3%"
+                    style="color:black">
+                  <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt4" placeholder="%wt4%"
+                    style="color:black">
+                  <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt5" placeholder="%wt5%"
+                    style="color:black">
+                </div><br>
+                <p3 id="title1" style="background-color: rgb(255, 230, 0);color: black;">time (in seconds)</p3>
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="dr1" placeholder="%dr1%"
+                  style="color:black">
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="dr2" placeholder="%dr2%"
+                  style="color:black">
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="dr3" placeholder="%dr3%"
+                  style="color:black">
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="dr4" placeholder="%dr4%"
+                  style="color:black">
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="dr5" placeholder="%dr5%"
+                  style="color:black"><br>
+
+                <input id="rm111" type="submit" value="START"
+                  style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+              </form>
+            </p5>
+
+          </div>
+        </div> <!-- end port1-->
+
+      </div><!-- and id port-->
+
+      <div id="setup" class="tabcontent">
+        <!-- <embed type="text/html" src="net.html" style="min-width: 10cm;min-height: 8cm;"> -->
+        <p5 id="net">
+          <form action="/netap">
+            <p3 id="title1"
+              style="background-color: rgb(0, 204, 255);color: rgb(49, 49, 49);align-content: flex-start;">
+              set AP
+              network credential
+            </p3><br>
+            SSID: <input type="text" name="ssidap" placeholder="%ssidap%" style="color:gray;min-width: 3cm;"><br>
+            <p3 style="font-size: 10 px;">type "0" or less than 8 char,</p3><br>
+            <p3 style="font-size: 10 px;"> make open AP</p3>
+            KEY : <input type="text" name="keyap" placeholder="%keyap%" style="color:gray;min-width: 3cm;"><br>
+
+            <input type="submit" value="SAVE" style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+          </form>
+        </p5>
+      </div>
+    </div><!-- and class card-body-->
+  </div> <!-- and class card_switch-->
+  <section>
+    <!-- trick to make phone screen keep awake -->
+    <!-- <h2>Base64</h2> -->
+    <video controls autoplay loop muted hidden>
+      <source
+        src="data:video/mp4;base64, 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">
+    </video>
+  </section>
+</body>
+<script>
+  // window.onload = function () {
+  //   var xhttp = new XMLHttpRequest();
+  //   xhttp.onreadystatechange = function () {
+  //     if (this.readyState == 4 && this.status == 200) {
+  //       document.getElementById("light").innerHTML = this.responseText;
+  //     }
+  //   };
+  //   xhttp.open("GET", "/light", true);
+  //   xhttp.send();
+  // };
+  var b_port1 = false;
+  var b_port2 = false;
+  var b_port3 = false;
+  var tab = "";
+
+  // setInterval(function () {
+  //   var xhttp = new XMLHttpRequest();
+  //   xhttp.onreadystatechange = function () {
+  //     if (this.readyState == 4 && this.status == 200) {
+  //       document.getElementById("light").innerHTML = this.responseText;
+  //     }
+  //   };
+  //   xhttp.open("GET", "/light", true);
+  //   xhttp.send();
+  // }, 1000);
+
+  // setInterval(function () {
+  //   var xhttp = new XMLHttpRequest();
+  //   xhttp.onreadystatechange = function () {
+  //     if (this.readyState == 4 && this.status == 200) {
+  //       document.getElementById("mist").innerHTML = this.responseText;
+  //     }
+  //   };
+  //   xhttp.open("GET", "/mist", true);
+  //   xhttp.send();
+  // }, 200);
+
+  function methode() {
+
+    var val = document.getElementById("pm").value;
+    // alert(val);
+    if (val === "pm3") {
+      printInfo(4, "selecting maria galova methode will be ignore water value you have been set");
+    }
+  }
+
+  function openTab(evt, cityName) {
+
+    // document.getElementsByName("header2").style.backgroundColor = getRandomColor();
+    // for (let i = 1; i < 9; i++) {
+    //   var dip = "title";
+    //   dip += i;
+    //   document.getElementById(dip).style.backgroundColor = getRandomColor();
+    // }
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+
+  // requestAnimationFrame(
+  //   function () {
+  //     document.body.style.background = 'black';
+  //   }
+  // );
+  // document.getElementById("switchid").onchange = function () {
+  // setTimeout("document.body.style.background = 'black'", 100000);
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var lettersDark = '0123456789A';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += lettersDark[Math.floor(Math.random() * lettersDark.length)];
+    }
+    return color;
+  }
+</script>
+
+</html>

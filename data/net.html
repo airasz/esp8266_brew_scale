@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- 
+design by airasz
+-->
+<html>
+
+<head>
+        <title>paludarium timer</title>
+        <!--         <link rel="shortcut icon" type="image/jpg" href="https://icons8.com/icon/tPtmOacA9TwY/timer" /> -->
+        <!--         <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <link rel="icon" href="data:,">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <!-- <link rel="script" type="text/js" href="app.js"> -->
+        <!--         <script src="app.js"></script> -->
+</head>
+<!-- <body style="min-width: 9cm;" onload="loadfirst()"> -->
+
+<body style="min-width: 9cm;align-content: flex-end;">
+
+        <p5 id="net" style="align-self: flex-end;display: none;">
+                <form action="/netclient">
+                        <p3 id="title1"
+                                style="background-color: rgb(0, 204, 255);color: rgb(49, 49, 49);align-content: flex-start;">
+                                set client
+                                network credential
+                        </p3><br>
+                        SSID: <input type="text" name="ssidcl" placeholder="%ssidcl%"
+                                style="color:gray;min-width: 3cm;align-content: flex-start;"><br>
+                        KEY : <input type="text" name="keycl" placeholder="%keycl%"
+                                style="color:gray;min-width: 3cm"><br>
+
+                        <input type="submit" value="SAVE" style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+                </form>
+        </p5>
+        <p5 id="net">
+                <form action="/netap">
+                        <p3 id="title1"
+                                style="background-color: rgb(0, 204, 255);color: rgb(49, 49, 49);align-content: flex-start;">
+                                set AP
+                                network credential
+                        </p3><br>
+                        SSID: <input type="text" name="ssidap" placeholder="%ssidap%"
+                                style="color:gray;min-width: 3cm;"><br>
+                        KEY (left empty for open AP) : <input type="text" name="keyap" placeholder="%keyap%"
+                                style="color:gray;min-width: 3cm;"><br>
+
+                        <input type="submit" value="SAVE" style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+                </form>
+        </p5>
+        <!-- style="display: none;" -->
+</body>
+<script>
+
+        var cbl = document.getElementById("swp2");
+        cbl.onchange = function () {
+                var xhttp = new XMLHttpRequest();
+                if (cbl.checked) {
+                        // alert("checked true");
+                        xhttp.open("GET", "/onp2", true);
+                        xhttp.send();
+                } else {
+                        // alert("checked false");
+                        xhttp.open("GET", "/offp2", true);
+                        xhttp.send();
+                }
+        }
+        function setsync() {
+                var date = new Date(Date.UTC(2012, 11, 20, 3, 0, 0));
+                var datef = date.toLocaleTimeString('en-US');
+                var currentTime = new Date();
+                var time = currentTime.getTime();
+                var hours = currentTime.getHours(); var minutes = currentTime.getMinutes(); var seconds = currentTime.getSeconds();
+                document.getElementsByName('devhour')[0].placeholder = hours;
+                document.getElementsByName('devminute')[0].placeholder = minutes;
+                document.getElementsByName('devsecond')[0].placeholder = seconds;
+        }
+        function loadfirst() {
+                // alert("net loaded");
+                for (let i = 0; i < 2; i++) {
+                        var s = "ap_par" + i;
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                                if (this.readyState == 4 && this.status == 200) {
+                                        // document.getElementById("light").innerHTML = this.responseText;
+                                        if (i === 0) {
+                                                // document.getElementsByName("ssidap")[0].placeholder = "kodok";
+
+                                                // alert(this.responseText);
+                                        }
+                                        if (i === 1) {
+                                                // alert(this.responseText);
+                                                document.getElementsByName("keyap")[0].placeholder = this.responseText;
+                                        }
+
+                                }
+                        };
+                        xhttp.open("GET", s, true);
+                        // xhttp.open("GET", "/abort1", true);
+                        xhttp.send();
+                }
+        }
+</script>
+
+</html>

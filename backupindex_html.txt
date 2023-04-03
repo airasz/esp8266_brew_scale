@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<!-- 
+design by airasz
+-->
+<html>
+
+<head>
+  <title>paludarium timer</title>
+  <link rel="shortcut icon" type="image/jpg" href="https://icons8.com/icon/tPtmOacA9TwY/timer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <!-- <link rel="script" type="text/js" href="app.js"> -->
+  <script src="app.js"></script>
+</head>
+
+<body onload="loadonce()">
+
+  <div class="card_switch" style="max-width: 28rem;">
+    <h1>smart plug</h1>
+    <div class="card-body">
+
+      <div class="tab" style="background-color:  rgb(243, 243, 243);">
+        <button class="tablinks" onclick="openTab(event, 'Action')" id="defaultOpen">HOME</button>
+        <button class="tablinks" onclick="openTab(event, 'port')">PORT SETUP</button>
+        <button class="tablinks" onclick="openTab(event, 'setup')">SETUP</button>
+      </div>
+      <div id="Action" class="tabcontent">
+
+
+
+        <p4 style="margin-top:1cm;">
+          <span class="light-labels">Device current time: </span>
+          <span id="light" style="color: gray;">%CTIME%</span>
+          <!-- <sup class="units">&deg;C</sup> -->
+          <button id="btnsync" class="button1" onclick="setsync()">SYNC device time with browser</button>
+        </p4><br>
+        <p4>
+          <span class="mist-labels">mist: </span><br>
+          <span id="mist" style="color: grey;">%MIST%</span>
+          <!-- <sup class="units">&deg;C</sup> -->
+        </p4><br>
+        <!-- <h2 id="counterint" style="font-size: 20px;" class="card-title">°C</h2> -->
+      </div>
+
+      <!--  ===============TAB PORT============= -->
+      <div id="port" class="tabcontent">
+
+
+        <div id="port1" class="tabcontents" style="display: none;">
+          <!-- /setrmp1?rmp1=rm11 -->
+          <p4 id="port_info1">Choose run mode for port 1:</p4><br>
+          <div id="port_1">
+            <form action="setrmp1" id="setrmp1">
+              <p4 id="rmode1" style="color:rgb(15, 15, 15);"> <strong>run mode</strong></p4>
+              <select name="rmp1" id="rmp1" onchange="runMode1()" style="border-color: blue;">
+
+                <option value="rm10">select....</option>
+                <optgroup label="repeatly">
+                  <option value="rm11">periodic</option>
+                  <option value="rm12">scheduled</option>
+                </optgroup>
+                <optgroup label="One Shot">
+                  <option value="rm13">scheduled</option>
+                  <option value="rm14">countdown</option>
+                  <option value="rm15">on/off</option>
+                </optgroup>
+              </select>
+              <br><br>
+              <!-- <input type="submit" value="run" style="color: blue;"> -->
+            </form>
+            <p5 id="rm11" style="display: none;">
+              <form action="/rm11/get">
+                <h4 id="header2" style="background-color: rgb(255, 230, 0);color: black;">set time</h4>
+                <p3 id="title1" style="background-color: rgb(255, 230, 0);color: black;">water (in mililiter)</p3>
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt1" placeholder="%wt1%"
+                  style="color:black">
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt1" placeholder="%wt1%"
+                  style="color:black">
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt1" placeholder="%wt1%"
+                  style="color:black">
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt1" placeholder="%wt1%"
+                  style="color:black">
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="wt1" placeholder="%wt1%"
+                  style="color:black"><br>
+                <p3 id="title1" style="background-color: rgb(255, 230, 0);color: black;">time (in seconds)</p3>
+                <input type="text" pattern="[0-9]*" inputmode="numeric" name="dr1" placeholder="%dr1%"
+                  style="color:black"><br>
+
+                <input id="rm111" type="submit" value="RUN"
+                  style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+              </form>
+            </p5>
+            <p5 id="rm12" style="display: none;">
+              <form action="/rm12/get">
+                <h4 name="header2">set time</h4>
+                <p3 id="title2" style="background-color: rgb(0, 132, 255);color: rgb(255, 255, 255);">set time</p3>
+                HOUR ON : <input type="text" pattern="[0-9]*" inputmode="numeric" name="hn1" placeholder="%hn1%">
+                MINUTE ON : <input type="text" pattern="[0-9]*" inputmode="numeric" name="mn1" placeholder="%mn1%"><br>
+                HOUR OFF : <input type="text" pattern="[0-9]*" inputmode="numeric" name="hf1" placeholder="%hf1%">
+                MINUTE OFF : <input type="text" pattern="[0-9]*" inputmode="numeric" name="mf1" placeholder="%mf1%"><br>
+                <input id="rm122" type="submit" value="RUN"
+                  style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+              </form>
+            </p5>
+            <p5 id="rm13" style="display: none;">
+              <form action="/rm13/get">
+                <p3 id="title3" style="background-color: rgb(0, 132, 255);color: rgb(255, 255, 255);">set time</p3>
+                HOUR ON : <input type="text" pattern="[0-9]*" inputmode="numeric" name="hn1" placeholder="%hn1%">
+                MINUTE ON : <input type="text" pattern="[0-9]*" inputmode="numeric" name="mn1" placeholder="%mn1%"><br>
+                HOUR OFF : <input type="text" pattern="[0-9]*" inputmode="numeric" name="hf1" placeholder="%hf1%">
+                MINUTE OFF : <input type="text" pattern="[0-9]*" inputmode="numeric" name="mf1" placeholder="%mf1%"><br>
+                <input id="rm133" type="submit" value="RUN"
+                  style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+              </form>
+            </p5>
+            <p5 id="rm14" style="display: none;">
+              <form action="/rm14/get">
+                <p3 id="title4" style="background-color: rgb(0, 132, 255);color: rgb(255, 255, 255);">countdown time to
+                  cut off</p3>
+                HOUR : <input type="text" pattern="[0-9]*" inputmode="numeric" name="ch1" placeholder="%ch1%">
+                MINUTE : <input type="text" pattern="[0-9]*" inputmode="numeric" name="cm1" placeholder="%cm1%"><br>
+                <input id="rm144" type="submit" value="RUN"
+                  style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+              </form>
+            </p5>
+            <p5 id="rm15" style="display: none;">
+              <div id="rm151" class=switch_led style="background-color:#dddddd;margin-bottom: 20mm;">
+                <p4 id="swp1" style="color:rgb(15, 15, 15);"> <strong>OFF</strong></p4>
+                <label class=" switchled">
+                  <input type="checkbox" id="switchid">
+                  <span class="slider"></span>
+                </label>
+                <p4 id="led1_status" style="color:rgb(228, 98, 98);"> <strong>ON</strong></p4>
+              </div>
+            </p5>
+          </div>
+        </div> <!-- end port1-->
+
+
+
+
+      </div><!-- and id port-->
+
+      <div id="setup" class="tabcontent">
+        <embed type="text/html" src="net.html" style="min-width: 10cm;min-height: 8cm;">
+      </div>
+    </div><!-- and class card-body-->
+  </div> <!-- and class card_switch-->
+
+</body>
+<script>
+  // window.onload = function () {
+  //   var xhttp = new XMLHttpRequest();
+  //   xhttp.onreadystatechange = function () {
+  //     if (this.readyState == 4 && this.status == 200) {
+  //       document.getElementById("light").innerHTML = this.responseText;
+  //     }
+  //   };
+  //   xhttp.open("GET", "/light", true);
+  //   xhttp.send();
+  // };
+  var b_port1 = false;
+  var b_port2 = false;
+  var b_port3 = false;
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("mist").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "/mist", true);
+    xhttp.send();
+  }, 1000);
+
+
+
+  function openTab(evt, cityName) {
+
+    // document.getElementsByName("header2").style.backgroundColor = getRandomColor();
+    for (let i = 1; i < 9; i++) {
+      var dip = "title";
+      dip += i;
+      document.getElementById(dip).style.backgroundColor = getRandomColor();
+    }
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+
+
+  var cb = document.getElementById("switchid");
+  function cb_listener(element) {
+
+    var cb = document.getElementById("switchid");
+    var p = document.getElementsByTagName(p4);
+
+    if (element) {
+
+      alert("Page is loaded");
+    }
+    p.innerHTML = cb.checked();
+
+  }
+
+  document.getElementById("defaultOpen").click();
+  // document.getElementById("switchid").onchange = function () {
+  cb.onchange = function () {
+    var xhttp = new XMLHttpRequest();
+    if (cb.checked) {
+      // alert("checked true");
+      xhttp.open("GET", "/tobright", true);
+      xhttp.send();
+    } else {
+      // alert("checked false");
+      xhttp.open("GET", "/todark", true);
+      xhttp.send();
+    }
+  }
+  var cbm = document.getElementById("modeid");
+  cbm.onchange = function () {
+    var xhttp = new XMLHttpRequest();
+    if (cbm.checked) {
+      // alert("checked true");
+      xhttp.open("GET", "/lstatic", true);
+      xhttp.send();
+    } else {
+      // alert("checked false");
+      xhttp.open("GET", "/ldynamic", true);
+      xhttp.send();
+    }
+  }
+  var cbl = document.getElementById("switchled");
+  cbl.onchange = function () {
+    var xhttp = new XMLHttpRequest();
+    if (cbl.checked) {
+      // alert("checked true");
+      xhttp.open("GET", "/on", true);
+      xhttp.send();
+    } else {
+      // alert("checked false");
+      xhttp.open("GET", "/off", true);
+      xhttp.send();
+    }
+  }
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var lettersDark = '0123456789A';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += lettersDark[Math.floor(Math.random() * lettersDark.length)];
+    }
+    return color;
+  }
+</script>
+
+</html>

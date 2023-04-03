@@ -1,0 +1,311 @@
+
+html {
+  font-family: Arial;
+  display: inline-block;
+  margin: 0px auto;
+  text-align: center;
+}
+h1 {color: rgb(0, 120, 141);
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: left;
+        font-weight: lighter;
+         font-size: smaller;
+  /* padding: 0vh; */
+} 
+p {
+  font-size: 1.5rem;
+}
+.synct {
+  display: inline-block;
+  background-color: #008CBA;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 6px 4px;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 2px;
+  cursor: pointer;
+}
+input[type=submit], input[type=reset] ,input[type=option] {
+
+        background-color: transparent;
+        border: chartreuse;
+        border: solid 1px orange;
+        color: rgb(255, 208, 0);
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 30px;
+        display: flex;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor:pointer;
+}
+input[type=submit]:hover{
+
+        background-color: yellow;
+        color: rgb(36, 29, 1);
+}
+.cars{
+  border-color: #f44336;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(196, 195, 195);
+  opacity: 1; /* Firefox */
+}
+.button1{
+   background-color: transparent;
+        border: chartreuse;
+        border: solid 1px rgb(180, 117, 0);
+        color: rgb(0, 100, 95);
+        padding: 4px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 30px;
+        display: flex;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor:pointer;
+}
+.port{
+   background-color: transparent;
+        border: chartreuse;
+        border: solid 1px rgb(33, 114, 0);
+        color: rgb(100, 57, 0);
+        padding: 4px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 30px;
+        font-size: 16px;
+        margin: 2px 2px;
+        cursor:pointer;
+}
+.button2 {
+  background-color: #f44336;
+}
+.units {
+  font-size: 1.2rem;
+ }
+.sensor-labels {
+  font-size: 1.5rem;
+  vertical-align:middle;
+  padding-bottom: 15px;
+}
+
+
+.card_switch {
+        /* Add shadows to create the "card" effect */
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        background-color: rgb(243, 243, 243);
+        margin-top: 0mm;
+        display: block;
+        margin-right: 5mm;
+        /* padding-bottom: 5mm; */
+        min-width: 9cm;
+        align-items: left;
+        justify-content: left;
+         /* display: flex; */
+        justify-items: left;
+        /* position: relative; */
+           flex-flow:     row wrap;
+/* flex-wrap: inherit; */
+flex-direction: column;
+  display: inline-block; /*centering card
+  /* flex-wrap: wrap; */
+  /* position: relative; */
+  /* flex-direction: row; */
+  /* word-wrap: break-word; */
+}
+.Action{
+        align-items: left;
+        justify-content: left;
+         /* display: flex; */
+        justify-items: left;
+        /* position: relative; */
+/*            flex-flow:     row wrap; */
+/* flex-wrap: inherit; */
+/* flex-direction: row; */
+  display: inline;
+}
+/* On mouse-over, add a deeper shadow */
+.card_switch:hover {
+        box-shadow:  0 10px 20px  rgba(0,0,0,0.8);
+}
+
+h2 {
+        color: rgb(61, 2, 2);
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        font-weight: lighter;
+
+}
+div p6{
+        color: rgb(242, 248, 188);
+        font-family: 'Segoe UI',sans-serif;
+        text-align: center;
+        
+}
+div p3{
+        text-align: center;
+        color: rgb(255, 102, 0);
+        font-family: sans-serif;
+        /* background-color: teal; */
+        display: block;
+        margin-top: 5mm;        
+}div p5{
+        text-align: center;
+        font-family: sans-serif;
+        color: rgb(65, 0, 22);
+        /* background-color: teal; */
+        display: block;
+        margin-top: 5mm;        
+}
+/* https://blogfonts.com/download/p-53339-1/Predator.file */
+div p4 {
+        text-size-adjust: 14pt;
+        text-transform: uppercase;
+        /* margin-left: 5mm; */
+        font-family: Arial, Helvetica, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        color: #2196F3;
+}
+div p6 {
+        text-size-adjust: 10pt;
+        /* text-transform: uppercase; */
+        /* margin-left: 5mm; */
+        font-family: Arial, Helvetica, sans-serif;
+        font-style: normal;
+        /* font-weight: bold; */
+        color: wheat;
+}
+input[type=text] {
+        width: 15%;
+        padding: 8px 8px;
+        margin: 8px 0;
+        /* margin-right: 10px;
+        margin-left: 10px; */
+        box-sizing: border-box;
+        border: 1px solid rgb(184, 204, 0);
+        border-radius: 6px;
+        background-color: rgb(233, 231, 231);
+        color: rgb(0, 75, 4);
+        text-size-adjust: 32px;
+        text-align: center;
+
+
+    }
+
+    
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  /* border: 1px solid #ccc; */
+  background-color:rgb(206, 206, 206);
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+          background-color:rgb(158, 158, 158);  
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        color: rgb(70, 70, 70);
+        font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: rgb(253, 253, 253);
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: rgb(221, 221, 221);
+        color: rgb(29, 29, 29);
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  /* border: 1px solid #ccc; */
+  border-top: none;
+  
+  background-color: rgb(221, 221, 221);
+}
+
+
+
+.switchled{
+
+  position: relative;
+  /* display: inline-block; */
+  width: 60px;
+  height: 34px;
+
+  margin-left: 3mm;
+  margin-right:  3mm;
+}
+.switchled input{
+         
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.switch_led{
+        background-color: rgb(61, 61, 61);
+        align-items: center;   /* centervertical/*
+        padding-left: 10mm;
+        padding-right: 10mm;
+        /* padding-bottom: 10mm; */
+        justify-content: center;
+        display: flex; 
+
+
+        
+}
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(15, 15, 15);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: rgb(126, 126, 126);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: rgb(243, 243, 243);
+}
+
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
