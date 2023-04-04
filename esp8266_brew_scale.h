@@ -45,13 +45,13 @@ HX711 scale;            // Init of library
 
 #define BUZZER_PIN 15
 #define BUZZER_CHANNEL 0
-int beepingMode = 0; //0: double beep rise 1:double beep fall 2:single beep
+int beepingMode = 0; // 0: double beep rise 1:double beep fall 2:single beep
 
 int incwater = 0;
 bool pour_limit_watch = 0;
 
 int timeseqIndex = 0;       //
-int waterseqIndex = 0;      //total sequence step
+int waterseqIndex = 0;      // total sequence step
 int waterseqCountIndex = 0; // sequence step progress
 int timerseqCountIndex = 0;
 int displayCount = 0;
@@ -122,7 +122,7 @@ int beepfreq = 0;
 String _ssidAP()
 {
         String ssid;
-        for (int i = 512 + 64; i < 512 + 64 + 32; i++)
+        for (int i = 512; i < 512 + 32; i++)
         {
                 if (int(EEPROM.read(i)) > 31)
                 {
@@ -137,7 +137,7 @@ String _ssidAP()
 String _passAP()
 {
         String pass;
-        for (int i = 512 + 96; i < 512 + 128; i++)
+        for (int i = 512 + 32; i < 512 + 64; i++)
         {
                 if (int(EEPROM.read(i)) > 31)
                 {
@@ -147,5 +147,30 @@ String _passAP()
         // pass.replace(/ [^\x00 -\x7F] / g, "");
         if (pass == "")
                 pass = "no_password";
+
+        Serial.print("pass=");
+        Serial.println(pass);
+        return pass;
+}
+String _passAP_() // suggest by chatGBT
+{
+        String pass;
+        pass.reserve(32); // reserve memory for the String
+
+        for (int i = 512 + 32; i < 512 + 64; i++)
+        {
+                char c = EEPROM.read(i);
+                if (c > 31)
+                {
+                        pass += c;
+                }
+        }
+
+        if (pass.isEmpty())
+        {
+                pass = "no_password";
+        }
+        Serial.print("pass=");
+        Serial.println(pass);
         return pass;
 }

@@ -166,7 +166,19 @@ void startserver()
         // Remove the password parameter, if you want the AP (Access Point) to be open
         // (_passAP != "") ? WiFi.softAP(_ssidAP) : WiFi.softAP(_ssidAP, _passAP);
         WiFi.mode(WIFI_AP);
-        (_passAP().c_str() == "") ? WiFi.softAP(_ssidAP().c_str()) : WiFi.softAP(_ssidAP().c_str(), _passAP().c_str());
+        // (_passAP().c_str() == "") ? WiFi.softAP(_ssidAP().c_str()) : WiFi.softAP(_ssidAP().c_str(), _passAP().c_str());
+
+        String pass = _passAP().c_str();
+        if (pass.length() > 10)
+        {
+                WiFi.softAP(_ssidAP().c_str());
+                Serial.println("create open wifi");
+        }
+        else
+        {
+                WiFi.softAP(_ssidAP().c_str(), _passAP().c_str());
+                Serial.println("create closed wifi");
+        }
         Serial.print("starting AP : ");
         Serial.println(_ssidAP());
 
@@ -459,6 +471,8 @@ void setupnetwork()
                                   {
                                           if (inputMessage.length() > 8)
                                           {
+
+                                                  Serial.println("writing key AP");
                                                   for (int i = 0; i < 32; i++)
                                                   {
                                                           EEPROM.write(512 + 32 + i, 0);

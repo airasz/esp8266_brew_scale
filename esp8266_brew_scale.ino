@@ -31,7 +31,7 @@ void setup()
   NEO.begin();
   if (!ledindication)
   {
-    //colore =RgbColor(0, 0, 0);
+    // colore =RgbColor(0, 0, 0);
     NEO.setPixelColor(0, 0);
     NEO.show();
   }
@@ -46,11 +46,13 @@ void setup()
   analogWriteFreq(100);
   // pwm.setup(D5, 100, 1);
   // pwm.start();
-  scale.begin(DOUT, CLK);
+  Serial.println("init scale");
+  // scale.begin(DOUT, CLK);
+  Serial.println("done. init scale");
   // pinMode(2, OUTPUT);
   // digitalWrite(2, HIGH);
-  scale.set_scale(1132675); // Start scale
-  scale.tare();
+  // scale.set_scale(1132675); // Start scale
+  // scale.tare();
   EEPROM.begin(EEPROM_SIZE);
   EEPROM_readAnything(0, config); // get saved settings
   // Serial.print("ssid_cl = ");
@@ -62,13 +64,13 @@ void setup()
   // Serial.print("|key_ap = ");
   // Serial.println(_passAP());
   if (config.magic_number != CONFIG_REVISION)
-  { //this will set it up for very first use
+  { // this will set it up for very first use
 
     Serial.printf("magic wrong, was %ld, should be %ld\n", config.magic_number, CONFIG_REVISION);
     config.magic_number = CONFIG_REVISION;
     config.pour_mode = 0;
-    config.interval1 = 4;  //minute
-    config.duration1 = 40; //second
+    config.interval1 = 4;  // minute
+    config.duration1 = 40; // second
     config.interval2 = 2;
     config.duration2 = 50;
     config.interval3 = 2;
@@ -84,6 +86,7 @@ void setup()
   //   Serial.println("successfully set hostname");
   // }
   // connectToAP();
+  Serial.println("starting server");
   startserver();
   // If you're doing some debug output to serial, this should go in that section
   Serial.print("Host Name: ");
@@ -179,7 +182,7 @@ void loop()
   }
 }
 
-//timer function for aeration an oxygenation
+// timer function for aeration an oxygenation
 void timer()
 {
 }
@@ -207,7 +210,7 @@ void timbang()
 
     if (incrementValue > 6)
     {
-      //pouring detected
+      // pouring detected
       waterseqCountIndex++;
       timerseqCountIndex++;
       Serial.printf(" timerseqCountIndex : %d \n", timerseqCountIndex);
@@ -227,7 +230,7 @@ void timbang()
       incwater += wt[waterseqCountIndex - 1];
       // timerVal=timseq[timeseqIndex-1];
     }
-  } //end b_increment
+  } // end b_increment
 
   // give a warning if almost reach the target pour weight
   if (pour_limit_watch)
@@ -235,8 +238,8 @@ void timbang()
     i_gram = int(grame);
     if (i_gram > incwater - 8 && i_gram < incwater)
     {
-      //yellow led for almost water pour target
-      // incwater+=waterseq[waterseqCountIndex];
+      // yellow led for almost water pour target
+      //  incwater+=waterseq[waterseqCountIndex];
       if (beepwarning)
       {
         beepingMode = 4;
@@ -249,8 +252,8 @@ void timbang()
     }
     if (i_gram > wtarget)
     {
-      //red led for overpour
-      // incwater+=waterseq[waterseqCountIndex];
+      // red led for overpour
+      //  incwater+=waterseq[waterseqCountIndex];
 
       // pour_limit_watch = 0;
       int b = int(grame);
@@ -280,7 +283,7 @@ void timbang()
       b = 255;
     if (ledindication)
     {
-      //colore =RgbColor(0, 0, b);
+      // colore =RgbColor(0, 0, b);
 
       if (!smart_pour)
       {
@@ -319,7 +322,7 @@ void timbang()
       b = 255;
     if (ledindication)
     {
-      //colore =RgbColor(b, 0, 0);
+      // colore =RgbColor(b, 0, 0);
 
       NEO.setPixelColor(0, NEO.Color(b, 0, 0));
       NEO.show();
@@ -330,7 +333,7 @@ void timbang()
   }
   else if (grame > (-1.5) && grame < 1.5)
   {
-    //colore =RgbColor(0, 0, 0);
+    // colore =RgbColor(0, 0, 0);
     if (ledindication)
     {
       NEO.setPixelColor(0, NEO.Color(0, 0, 0));
@@ -396,9 +399,9 @@ void beep()
         if (beepingMode == 3)
         {
           tone(BUZZER_PIN, NOTE_D8, BUZZER_CHANNEL);
-          //colore =RgbColor(0, 200, 0);
-          // NEO.setPixelColor(0, NEO.Color(0, 0, 0));
-          // NEO.show();
+          // colore =RgbColor(0, 200, 0);
+          //  NEO.setPixelColor(0, NEO.Color(0, 0, 0));
+          //  NEO.show();
         }
       }
       else if (beepcount == 4)
@@ -422,11 +425,11 @@ void beep()
       else if (beepcount == 6)
       {
 
-        //colore =RgbColor(0, 0, 0);
-        // Serial.println("flash green");
-        // NEO.setPixelColor(0, NEO.Color(0, 0, 0));
-        // NEO.show();
-        // noTone(BUZZER_PIN, BUZZER_CHANNEL);
+        // colore =RgbColor(0, 0, 0);
+        //  Serial.println("flash green");
+        //  NEO.setPixelColor(0, NEO.Color(0, 0, 0));
+        //  NEO.show();
+        //  noTone(BUZZER_PIN, BUZZER_CHANNEL);
         noTone(BUZZER_PIN);
         if (beepingMode == 4)
         {
@@ -457,16 +460,16 @@ void beep()
   }
 }
 
-//timer pouring
+// timer pouring
 String nextp = "WAITING FOR NEXT POUR";
 int prevtimerVal = 10;
 void pour_timer()
 {
-  if (millis() > lastPressed + intervalInput) //1seconds called
+  if (millis() > lastPressed + intervalInput) // 1seconds called
   {
 
     if (pourTimer == 1)
-    { //after increse detected
+    { // after increse detected
       second++;
       s_sts2 = String((timerVal - second));
       notifyClients(2, s_sts2);
@@ -532,19 +535,19 @@ void pour_timer()
         b_increment = 0;
         pourTimer = 0;
       }
-    } //end pourtimer==2
+    } // end pourtimer==2
 
     lastPressed = millis();
-  } //end if milllis
-} //end void
-//function for writePref
+  } // end if milllis
+} // end void
+// function for writePref
 void writePref()
 {
   EEPROM_writeAnything(0, config);
   EEPROM.commit();
 } // end of writePref
 
-//function for readPref
+// function for readPref
 void readPref()
 {
   EEPROM_readAnything(0, config); // get saved settings
