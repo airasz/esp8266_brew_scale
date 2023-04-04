@@ -134,7 +134,7 @@ String _ssidAP()
         // ssid = Regex.Replace(ssid, @"[^u0000-u007F]+", string.Empty);
         return ssid;
 }
-String _passAP()
+String _passAP_()
 {
         String pass;
         for (int i = 512 + 32; i < 512 + 64; i++)
@@ -152,7 +152,7 @@ String _passAP()
         Serial.println(pass);
         return pass;
 }
-String _passAP_() // suggest by chatGBT
+String _passAP() // suggest by chatGBT
 {
         String pass;
         pass.reserve(32); // reserve memory for the String
