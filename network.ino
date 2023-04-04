@@ -162,7 +162,7 @@ void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType 
 void startserver()
 {
 
-        Serial.print("Setting AP (Access Point)…");
+        Serial.println("Setting AP (Access Point)…");
         // Remove the password parameter, if you want the AP (Access Point) to be open
         // (_passAP != "") ? WiFi.softAP(_ssidAP) : WiFi.softAP(_ssidAP, _passAP);
         WiFi.mode(WIFI_AP);
@@ -469,7 +469,7 @@ void setupnetwork()
                                   Serial.println(inputMessage);
                                   if (inputMessage != "")
                                   {
-                                          if (inputMessage.length() > 8)
+                                          if (inputMessage.length() > 7)
                                           {
 
                                                   Serial.println("writing key AP");
