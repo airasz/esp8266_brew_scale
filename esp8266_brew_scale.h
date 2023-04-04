@@ -124,14 +124,12 @@ String _ssidAP()
         String ssid;
         for (int i = 512; i < 512 + 32; i++)
         {
-                if (int(EEPROM.read(i)) > 31)
-                {
-                        ssid += char(EEPROM.read(i));
+                char c = EEPROM.read(i); // read once instead of twice
+                if (c > 31 && c <= 127)
+                { // avoid using int() and check range in one comparison
+                        ssid += c;
                 }
-                // ssid += char(EEPROM.read(i));
         }
-        // ssid.replace(/ [^\x00 -\x7F] / g, "");
-        // ssid = Regex.Replace(ssid, @"[^u0000-u007F]+", string.Empty);
         return ssid;
 }
 String _passAP_()

@@ -453,7 +453,7 @@ void setupnetwork()
                                           {
                                                   EEPROM.write(512 + i, 0);
                                           }
-                                          for (int i = 0; i < inputMessage.length(); i++)
+                                          for (size_t i = 0; i < inputMessage.length(); i++)
                                           {
                                                   EEPROM.write(512 + i, inputMessage[i]);
                                                   Serial.println(inputMessage[i]);
@@ -467,28 +467,23 @@ void setupnetwork()
                                   inputParam = "rmp1";
                                   Serial.print("key client=  ");
                                   Serial.println(inputMessage);
-                                  if (inputMessage != "")
+                                  if (!inputMessage.isEmpty() && inputMessage.length() > 7)
                                   {
-                                          if (inputMessage.length() > 7)
+                                          Serial.println("writing key AP");
+                                          for (int i = 0; i < 32; i++)
                                           {
-
-                                                  Serial.println("writing key AP");
-                                                  for (int i = 0; i < 32; i++)
-                                                  {
-                                                          EEPROM.write(512 + 32 + i, 0);
-                                                  }
-                                                  for (int i = 0; i < inputMessage.length(); i++)
-                                                  {
-                                                          EEPROM.write(512 + 32 + i, inputMessage[i]);
-                                                  }
-
-                                                  EEPROM.commit();
+                                                  EEPROM.write(512 + 32 + i, 0);
                                           }
-                                          else
-                                          {
-                                                  config.openAP = true;
-                                                  writePref();
+                                          for (size_t i = 0; i < inputMessage.length(); i++)
+                                          { // use size_t for length comparison
+                                                  EEPROM.write(512 + 32 + i, inputMessage[i]);
                                           }
+                                          EEPROM.commit();
+                                  }
+                                  else if (!inputMessage.isEmpty())
+                                  { // added check for empty inputMessage
+                                          config.openAP = true;
+                                          writePref();
                                   }
                           }
 
@@ -499,32 +494,6 @@ void setupnetwork()
                   });
 }
 
-void savessid(String txt)
-{
-
-        for (int i = 0; i < 32; i++)
-        {
-                EEPROM.write(512 + 64 + i, 0);
-        }
-        for (int i = 0; i < txt.length(); i++)
-        {
-                EEPROM.write(512 + 64 + i, txt[i]);
-        }
-        EEPROM.commit();
-}
-void savekey(String txt)
-{
-        for (int i = 0; i < 32; i++)
-        {
-                EEPROM.write(512 + 96 + i, 0);
-        }
-        for (int i = 0; i < txt.length(); i++)
-        {
-                EEPROM.write(512 + 96 + i, txt[i]);
-        }
-
-        EEPROM.commit();
-}
 void calculate(int mode)
 {
         switch (mode)
