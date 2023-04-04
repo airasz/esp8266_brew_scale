@@ -1,4 +1,4 @@
 /build
 /esp8266_brew_scale.ino.d1_mini.bin
 /esp8266_brew_scale.ino.generic.bin
-.vscode/
+/.vscode
