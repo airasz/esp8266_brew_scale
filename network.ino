@@ -118,8 +118,9 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len)
                 {
                         NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                         NEO.show();
-                        beepingMode = 3; // single beep
-                        beepcount = 0;
+                        // beepingMode = 3; // single beep
+                        // beepcount = 0;
+                        beeping(3); // single beep
                         b_increment = 0;
                         incwater = 0;
                         tab = 0;
@@ -277,8 +278,9 @@ void setupPort1()
 
                           NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                           NEO.show();
-                          beepingMode = 3; //single beep
-                          beepcount = 0;
+                        //   beepingMode = 3; //single beep
+                        //   beepcount = 0;
+                          beeping(3); // single beep
                           setup_step = 1;
                           tab = 1;
                           request->redirect("/");
@@ -303,8 +305,9 @@ void setupPort1()
                                           {
                                                   NEO.setPixelColor(0, NEO.Color(200, 0, 0));
                                                   NEO.show();
-                                                  beepingMode = 1; // single beep
-                                                  beepcount = 0;
+                                                  //   beepingMode = 1; // single beep
+                                                  //   beepcount = 0;
+                                                  beeping(1); // single beep
                                                   setup_step = 1;
                                                   request->redirect("/");
                                                   delay(30);
@@ -323,8 +326,9 @@ void setupPort1()
 
                                                   NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                                                   NEO.show();
-                                                  beepingMode = 3; // single beep
-                                                  beepcount = 0;
+                                                  //   beepingMode = 3; // single beep
+                                                  //   beepcount = 0;
+                                                  beeping(3); // single beep
                                                   calculate(pm);
                                                   setup_step = 2;
 
@@ -416,8 +420,9 @@ void setupPort1()
 
                           NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                           NEO.show();
-                          beepingMode = 3; // single beep
-                          beepcount = 0;
+                          //   beepingMode = 3; // single beep
+                          //   beepcount = 0;
+                          beeping(3); // single beep
                           Serial.printf("timeseqindex = %d\n", timeseqIndex);
                           b_increment = 1; // activated increment water
                           incwater = 0;
@@ -493,7 +498,11 @@ void setupnetwork()
                           // breboot = 1;
                   });
 }
-
+void beeping(int mode)
+{
+        beepingMode = mode;
+        beepcount = 0;
+}
 void calculate(int mode)
 {
         switch (mode)
@@ -535,14 +544,15 @@ void calculate(int mode)
 
                 if (wt[i] != 0)
                         timeseqIndex++;
-                if (i != 0)
-                {
-                        pourtarget[i] = pourtarget[i - 1] + wt[i];
-                }
-                else
-                {
-                        pourtarget[i] = wt[i];
-                }
+                // if (i != 0)
+                // {
+                //         pourtarget[i] = pourtarget[i - 1] + wt[i];
+                // }
+                // else
+                // {
+                //         pourtarget[i] = wt[i];
+                // }
+                pourtarget[i] = (i != 0) ? pourtarget[i - 1] + wt[i] : pourtarget[i] = wt[i];
                 Serial.printf(" pourtarget[%d] : %d \n", i, pourtarget[i]);
         }
 }

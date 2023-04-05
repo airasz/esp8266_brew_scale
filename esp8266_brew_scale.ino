@@ -47,12 +47,12 @@ void setup()
   // pwm.setup(D5, 100, 1);
   // pwm.start();
   Serial.println("init scale");
-  // scale.begin(DOUT, CLK);
+  scale.begin(DOUT, CLK);
   Serial.println("done. init scale");
   // pinMode(2, OUTPUT);
   // digitalWrite(2, HIGH);
-  // scale.set_scale(1132675); // Start scale
-  // scale.tare();
+  scale.set_scale(1132675); // Start scale
+  scale.tare();
   EEPROM.begin(EEPROM_SIZE);
   EEPROM_readAnything(0, config); // get saved settings
   // Serial.print("ssid_cl = ");
@@ -81,10 +81,6 @@ void setup()
     EEPROM.commit();
   }
   b_lstatic = config.lstatic;
-  // if (WiFi.hostname("SENDHANG"))
-  // {
-  //   Serial.println("successfully set hostname");
-  // }
   // connectToAP();
   Serial.println("starting server");
   startserver();
@@ -146,8 +142,9 @@ void loop()
       yield();
       // scale.power_down();
       b_tare = 0;
-      beepingMode = 3;
-      beepcount = 0;
+      // beepingMode = 3;
+      // beepcount = 0;
+      beeping(3); // single beep
 
       Serial.println("end tare");
     }
@@ -156,35 +153,17 @@ void loop()
     numb++;
     if (numb > 9)
     {
-      // checkTime();
-      // if (WiFi.status() != WL_CONNECTED)
-      // {
-      //   connectToAP();
-      // }
-
       numb = 0;
     }
     if (breboot)
       ESP.restart();
-
-    // String formattedTime = timeClient.getFormattedTime();
-    // Serial.print("Formatted Time: ");
-    // Serial.println(formattedTime);
     prevmil1 = millis();
   }
   if (millis() > prevmil2 + interv)
   {
-    // float grame = scale.get_units(getAverageRate) * 1000;
-    // s_sts1 = String(grame, 1);
-    // s_sts1 += " g";
     timbang();
     prevmil2 = millis();
   }
-}
-
-// timer function for aeration an oxygenation
-void timer()
-{
 }
 
 void timbang()
@@ -215,8 +194,7 @@ void timbang()
       timerseqCountIndex++;
       Serial.printf(" timerseqCountIndex : %d \n", timerseqCountIndex);
       incrementValue = 0;
-      beepingMode = 1;
-      beepcount = 0;
+      beeping(1); // single beep
       pourTimer = 1;
       intervalInput = 1000;
       b_increment = 0;
@@ -242,8 +220,9 @@ void timbang()
       //  incwater+=waterseq[waterseqCountIndex];
       if (beepwarning)
       {
-        beepingMode = 4;
-        beepcount = 0;
+        // beepingMode = 4;
+        // beepcount = 0;
+        beeping(4); // single beep
         beepwarning = false;
         NEO.setPixelColor(0, NEO.Color(200, 150, 0));
         NEO.show();
@@ -254,8 +233,6 @@ void timbang()
     {
       // red led for overpour
       //  incwater+=waterseq[waterseqCountIndex];
-
-      // pour_limit_watch = 0;
       int b = int(grame);
       NEO.setPixelColor(0, NEO.Color(b * 2, 0, 0));
       NEO.show();
@@ -264,12 +241,8 @@ void timbang()
     {
       int b = int(grame);
       // int bl = (incwater - b - 8) * 2;
-
       int bl = map((incwater - b - 8) * 2, wt[waterseqCountIndex - 1], 0, 255, 0);
-
       // int bl = map(b, wt[waterseqCountIndex - 1], wt[waterseqCountIndex], wt[waterseqCountIndex] - wt[waterseqCountIndex - 1], 0);
-      if (bl < 0)
-        bl = 0;
       bl = constrain(bl, 0, 255);
       NEO.setPixelColor(0, NEO.Color(0, 0, bl));
       NEO.show();
@@ -438,17 +411,18 @@ void beep()
           if (beepfreq > 4)
           {
             beepfreq = 0;
-            beepingMode = 0;
-            beepcount = 0;
+            // beepingMode = 0;
+            // beepcount = 0;
+            beeping(0); // single beep
           }
           beepcount = 3;
         }
         else
         {
 
-          beepcount = 0;
-          // duration = 20;
-          beepingMode = 0;
+          // beepcount = 0;
+          // beepingMode = 0;
+          beeping(0); // single beep
         }
       }
       // if(beepcount>4){
@@ -499,8 +473,9 @@ void pour_timer()
         info2Lenght = nextp.length();
 
         intervalInput = 10;
-        beepingMode = 2;
-        beepcount = 0;
+        // beepingMode = 2;
+        // beepcount = 0;
+        beeping(2); // single beep
         if (bautotare)
           b_tare = 1;
       }
