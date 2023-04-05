@@ -218,11 +218,11 @@ void startserver()
                   {
                           b_tare = 1;
                           request->send(SPIFFS, "/index.html", String(), false, processor); });
-        // server.on("/light", HTTP_GET, [](AsyncWebServerRequest *request) {
-        //         // Serial.print("lighting");
-        //         // request->send(SPIFFS, "/index.html", String(), false, processor);
-        //         request->send(200, "text/plain", s_sts2.c_str());
-        // });
+        server.on("/running", HTTP_GET, [](AsyncWebServerRequest *request)
+                  {
+                // Serial.print("lighting");
+                // request->send(SPIFFS, "/index.html", String(), false, processor);
+                request->send(200, "text/plain", (smart_pour)?"1":"0"); });
 
         server.on("/ap_par0", HTTP_GET, [](AsyncWebServerRequest *request)
                   { request->send(200, "text/plain", _ssidAP().c_str()); });

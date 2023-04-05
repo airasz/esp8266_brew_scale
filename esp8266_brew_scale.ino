@@ -78,6 +78,16 @@ void setup()
     config.lstatic = false;
     config.openAP = true;
     EEPROM_writeAnything(0, config);
+    String ap = "kopi_scale";
+    for (int i = 0; i < 32; i++)
+    {
+      EEPROM.write(512 + i, 0);
+    }
+    for (size_t i = 0; i < ap.length(); i++)
+    {
+      EEPROM.write(512 + i, ap[i]);
+      Serial.println(ap[i]);
+    }
     EEPROM.commit();
   }
   b_lstatic = config.lstatic;
@@ -506,15 +516,33 @@ void pour_timer()
         smart_pour = 0;
         s_sts2 = "done";
         notifyClients(2, s_sts2);
+
+        notifyClients(0, "htimer"); // hide timer face
         notifyClients(3, "enjoy your coffee");
         b_increment = 0;
         pourTimer = 0;
+        resetSmartValue();
       }
     } // end pourtimer==2
 
     lastPressed = millis();
   } // end if milllis
 } // end void
+void resetSmartValue()
+{
+
+  b_increment = 0;
+  pourTimer = 0;
+  for (size_t i = 0; i < 5; i++)
+  {
+    wt[i] = 0;
+    dr[i] = 0;
+  }
+  wtarget = 0;
+  incwater = 0;
+  waterseqCountIndex = 0;
+  timerseqCountIndex = 0;
+}
 // function for writePref
 void writePref()
 {
