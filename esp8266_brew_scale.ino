@@ -131,7 +131,6 @@ void connectToAP()
   // startserver();
 }
 long oldMil = 0;
-
 // long prevmil2 = 0;
 void loop()
 {
@@ -152,18 +151,8 @@ void loop()
       yield();
       // scale.power_down();
       b_tare = 0;
-      // beepingMode = 3;
-      // beepcount = 0;
       beeping(3); // single beep
-
       Serial.println("end tare");
-    }
-    // timer();
-    // port1();
-    numb++;
-    if (numb > 9)
-    {
-      numb = 0;
     }
     if (breboot)
       ESP.restart();
@@ -230,8 +219,6 @@ void timbang()
       //  incwater+=waterseq[waterseqCountIndex];
       if (beepwarning)
       {
-        // beepingMode = 4;
-        // beepcount = 0;
         beeping(4); // single beep
         beepwarning = false;
         NEO.setPixelColor(0, NEO.Color(200, 150, 0));
@@ -421,17 +408,12 @@ void beep()
           if (beepfreq > 4)
           {
             beepfreq = 0;
-            // beepingMode = 0;
-            // beepcount = 0;
             beeping(0); // single beep
           }
           beepcount = 3;
         }
         else
         {
-
-          // beepcount = 0;
-          // beepingMode = 0;
           beeping(0); // single beep
         }
       }
@@ -483,8 +465,6 @@ void pour_timer()
         info2Lenght = nextp.length();
 
         intervalInput = 10;
-        // beepingMode = 2;
-        // beepcount = 0;
         beeping(2); // single beep
         if (bautotare)
           b_tare = 1;

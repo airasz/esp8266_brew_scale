@@ -1,8 +1,6 @@
 #include <ESP8266WiFi.h>
 
 // Replace with your network credentials
-// const char *ssid = "ASUS";
-// const char *password = "";
 const char *ssid = "";
 const char *password = "";
 // Set your Static IP address

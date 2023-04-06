@@ -118,8 +118,6 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len)
                 {
                         NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                         NEO.show();
-                        // beepingMode = 3; // single beep
-                        // beepcount = 0;
                         beeping(3); // single beep
                         b_increment = 0;
                         incwater = 0;
@@ -278,8 +276,6 @@ void setupPort1()
 
                           NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                           NEO.show();
-                        //   beepingMode = 3; //single beep
-                        //   beepcount = 0;
                           beeping(3); // single beep
                           setup_step = 1;
                           tab = 1;
@@ -305,8 +301,6 @@ void setupPort1()
                                           {
                                                   NEO.setPixelColor(0, NEO.Color(200, 0, 0));
                                                   NEO.show();
-                                                  //   beepingMode = 1; // single beep
-                                                  //   beepcount = 0;
                                                   beeping(1); // single beep
                                                   setup_step = 1;
                                                   request->redirect("/");
@@ -326,8 +320,6 @@ void setupPort1()
 
                                                   NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                                                   NEO.show();
-                                                  //   beepingMode = 3; // single beep
-                                                  //   beepcount = 0;
                                                   beeping(3); // single beep
                                                   calculate(pm);
                                                   setup_step = 2;
@@ -420,8 +412,6 @@ void setupPort1()
 
                           NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                           NEO.show();
-                          //   beepingMode = 3; // single beep
-                          //   beepcount = 0;
                           beeping(3); // single beep
                           Serial.printf("timeseqindex = %d\n", timeseqIndex);
                           b_increment = 1; // activated increment water

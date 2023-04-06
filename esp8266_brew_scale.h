@@ -94,10 +94,8 @@ typedef struct config_t
 } CONFIGGEN;
 CONFIGGEN config;
 long prevmil1, prevmil2;
-int c_mist, c_aerator, c_light, pwm1, pwm2, brightTo, lightinterval, numb;
 String s_sts1, old_sts1, s_sts2, s_status;
 auto light = false, prepare = false, beepwarning = true;
-int light_turn = 0;
 auto b_lstatic = false;
 const char *http_username = "admin";
 const char *http_password = "admin";
