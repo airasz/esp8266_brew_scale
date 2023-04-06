@@ -61,7 +61,7 @@ design by airasz
           <!-- /setrmp1?rmp1=rm11 -->
 
           <div id="port_1">
-            <p5 id="p_step0" style="display: none;">
+            <p5 id="p_step0" style="display: block;">
               <form action="/dose/get">
                 <p3 id="title4" style="background-color: rgb(0, 132, 255);color: rgb(255, 255, 255);">set ratio</p3>
                 COFFEE (grams) : <input type="text" pattern="[0-9]*" inputmode="numeric" name="cf_t"
@@ -72,7 +72,7 @@ design by airasz
                   style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
               </form>
             </p5>
-            <form action="/setpm" id="p_step1" style="display: none;">
+            <form action="/setpm" id="p_step1" style="display: block;">
               <p4 id="rmode1" style="color:rgb(15, 15, 15);"> <strong>pour method </strong></p4>
               <select name="pm1" id="pm" onchange="methode()" style="border-color: blue;">
 
@@ -86,7 +86,7 @@ design by airasz
               <br><br>
               <input type="submit" value="NEXT" style="color: blue;">
             </form>
-            <p5 id="p_step2" style="display: none;">
+            <p5 id="p_step2" style="display: block;">
               <form action="/seq/get">
                 <h4 id="header2" style="background-color: rgb(255, 230, 0);color: black;">set brewing sequence</h4>
                 <p3 id="title1" style="background-color: rgb(255, 230, 0);color: black;">water (in mililiter)</p3>

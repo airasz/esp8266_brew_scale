@@ -82,6 +82,11 @@ function printInfo(mode, msg) {
             par.appendChild(t);
             popi.appendChild(par);
             tO += (msg.length * 100);
+            if (msg.startsWith("enjoy")) {
+                tO += 15000;
+                document.getElementById("1").style.display = "inline";
+                document.getElementById("2").style.display = "inline";
+            }
             setTimeout(function () { par.remove(); }, tO);
             // setTimeout(clearinfo(sid), 3000);
             // alert("info 1");
@@ -137,31 +142,13 @@ function onLoad(event) {
     initButton();
 }
 function loadonce() {
-    // var b = "sport";
-    // var d = "ss ";
-
-    // hs_abort_btn();
-    // getbtime();
-    // gettime();
-    // rmp1();
     gettab();
     // alert("test");
     isSmart();
-    if (send_get("/running") == '1') {
-
-        alert("running=1");
-        // running = true;
-        // interval = 500;
-        document.getElementById("divtimer").style.display = "block";
-    } else if (send_get("/running") == '0') {
-
-        alert("running=0");
-        // running = true;
-        // interval = 500;
-        document.getElementById("divtimer").style.display = "none";
+    var pstp = "p_step";
+    for (let i = 0; i < 3; i++) {
+        document.getElementById("p_step" + i).style.display = "none";
     }
-
-
     var setup_step = send_get("/setup_step");
     var iss = parseInt(setup_step);
     var ele = document.getElementById("setup");
@@ -183,27 +170,6 @@ function loadonce() {
 
 
 
-
-// function gettime() {
-//     // alert("Page is loaded");
-//     var xhttp = new XMLHttpRequest();
-//     xhttp.onreadystatechange = function () {
-//         if (this.readyState == 4 && this.status == 200) {
-//             var stime = this.responseText;
-//             document.getElementById("light").innerHTML = stime;
-//             var min = stime.substring(3, 5);
-//             var minn = parseInt(min);
-//             if (minn == minutes) {
-//                 document.getElementById("btnsync").style.display = "none";
-//             } else {
-//                 document.getElementById("btnsync").style.display = "block";
-//             }
-//         }
-//     };
-
-//     xhttp.open("GET", "/ctime", true);
-//     xhttp.send();
-// }
 function gettab() {
     // alert("Page is loaded");
     var xhttp = new XMLHttpRequest();
@@ -224,12 +190,7 @@ function gettab() {
     getsstep();
 }
 function tare() {
-    // var xhttp = new XMLHttpRequest();
-
-    // xhttp.open("GET", "/tare", true);
-    // xhttp.send();
     websocket.send('tare');
-
 }
 function abort() {
 
@@ -274,8 +235,12 @@ function isSmart() {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText == '1') {
                 document.getElementById("divtimer").style.display = "block";
+                document.getElementById("1").style.display = "none";
+                document.getElementById("2").style.display = "none";
             } else {
                 document.getElementById("divtimer").style.display = "none";
+                document.getElementById("1").style.display = "inline";
+                document.getElementById("2").style.display = "inline";
             }
         }
     };
