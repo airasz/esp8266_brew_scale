@@ -114,7 +114,7 @@ int cf_t, wt_t, tab, setup_step, pm;
 auto countdown1 = 1, countdown2 = 1, countdown3 = 1;
 bool reversepin = 0, OFF, ON;
 auto running = false;
-
+auto warning_threshold = 8; // gram warning treshold
 bool bautotare = 0;
 int beepfreq = 0;
 String _ssidAP()

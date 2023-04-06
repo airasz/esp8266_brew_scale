@@ -213,10 +213,9 @@ void timbang()
   if (pour_limit_watch)
   {
     i_gram = int(grame);
-    if (i_gram > incwater - 8 && i_gram < incwater)
+    if (i_gram > incwater - warning_threshold && i_gram < incwater)
     {
       // yellow led for almost water pour target
-      //  incwater+=waterseq[waterseqCountIndex];
       if (beepwarning)
       {
         beeping(4); // single beep
@@ -224,7 +223,6 @@ void timbang()
         NEO.setPixelColor(0, NEO.Color(200, 150, 0));
         NEO.show();
       }
-      // pour_limit_watch = 0;
     }
     if (i_gram > wtarget)
     {
@@ -249,37 +247,13 @@ void timbang()
   if (grame > 1.5)
   {
     int b = int(grame);
-    if (b > 255)
-      b = 255;
+    (b > 255) && (b = 255);
     if (ledindication)
     {
-      // colore =RgbColor(0, 0, b);
-
       if (!smart_pour)
       {
-
         NEO.setPixelColor(0, NEO.Color(0, 0, b));
         NEO.show();
-      }
-      if (!pour_limit_watch && smart_pour)
-      {
-
-        //   NEO.setPixelColor(0, NEO.Color(200, 150, 0));
-        //   NEO.show();
-        // }
-        // else
-        // {
-        if (pourTimer != 1)
-        {
-          // int bl = map(b, 0, wt[waterseqCountIndex], wt[waterseqCountIndex], 0);
-
-          // make error
-          // int bl = map(b, wt[waterseqCountIndex - 1], wt[waterseqCountIndex], wt[waterseqCountIndex] - wt[waterseqCountIndex - 1], 0);
-          // if (bl < 0)
-          //   bl = 0;
-          // NEO.setPixelColor(0, NEO.Color(0, 0, bl));
-          // NEO.show();
-        }
       }
     }
     interv = 80;
@@ -288,12 +262,10 @@ void timbang()
   else if (grame < (-1.5))
   {
     int b = int(grame) * (-1);
-    if (b > 255)
-      b = 255;
+    (b > 255) && (b = 255);
     if (ledindication)
     {
       // colore =RgbColor(b, 0, 0);
-
       NEO.setPixelColor(0, NEO.Color(b, 0, 0));
       NEO.show();
     }
@@ -317,20 +289,8 @@ void timbang()
   // if (pourTimer > 0)
   if (smart_pour)
   {
-    // if (displayCount > 1)
-    // {
-
-    //   for (int i = 0; i < displayCount; i++)
-    //   {
-    //     wtarget += wt[displayCount];
-    //   }
-    // }
-
     s_sts1 += "/";
     s_sts1 += String(wtarget);
-  }
-  else
-  {
   }
 
   if (old_sts1 != s_sts1)
@@ -417,8 +377,6 @@ void beep()
           beeping(0); // single beep
         }
       }
-      // if(beepcount>4){
-      // }
     }
 
     // beepcount = 0;
