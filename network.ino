@@ -262,14 +262,14 @@ void setupPort1()
                           {
                                   inputMessage = request->getParam("cf_t")->value();
                                   inputParam = "inputint1";
-                                  if (inputMessage != "")
+                                  if (!inputMessage.isEmpty())
                                           cf_t = inputMessage.toInt();
                           }
                           if (request->hasParam("wt_t"))
                           {
                                   inputMessage = request->getParam("wt_t")->value();
                                   inputParam = "inputint1";
-                                  if (inputMessage != "")
+                                  if (!inputMessage.isEmpty())
                                           wt_t = inputMessage.toInt();
                           }
                           // request->send_P(200, "text/plain", "saved");
@@ -293,7 +293,7 @@ void setupPort1()
                                   inputParam = "rmp1";
                                   Serial.print("pm =  ");
                                   Serial.println(inputMessage);
-                                  if (inputMessage != "")
+                                  if (!inputMessage.isEmpty())
                                   {
 
                                           pm = inputMessage.substring(2).toInt();
@@ -309,15 +309,6 @@ void setupPort1()
                                           }
                                           else
                                           {
-                                                  //   else if (pm == 1)
-                                                  //   {
-                                                  //           timeseqIndex = 2;
-                                                  //   }
-                                                  //   else if (pm > 1)
-                                                  //   {
-                                                  //           timeseqIndex = 5;
-                                                  //   }
-
                                                   NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                                                   NEO.show();
                                                   beeping(3); // single beep
@@ -340,73 +331,20 @@ void setupPort1()
                           String inputParam;
                           // rmp1 = 1;
                           // GET input1 value on <ESP_IP>/get?input1=<inputMessage>
-                          if (request->hasParam("wt1"))
+                          for (size_t i = 0; i < 5; i++)
                           {
-                                  inputMessage = request->getParam("wt1")->value();
-                                  if (inputMessage != "")
-                                          wt[0] = inputMessage.toInt();
-                          }
-                          if (request->hasParam("wt2"))
-                          {
-                                  inputMessage = request->getParam("wt2")->value();
-                                  if (inputMessage != "")
-                                          wt[1] = inputMessage.toInt();
-                          }
-                          if (request->hasParam("wt3"))
-                          {
-                                  inputMessage = request->getParam("wt3")->value();
-                                  if (inputMessage != "")
-                                          wt[2] = inputMessage.toInt();
-                          }
-                          if (request->hasParam("wt4"))
-                          {
-                                  inputMessage = request->getParam("wt4")->value();
-                                  if (inputMessage != "")
-                                          wt[3] = inputMessage.toInt();
-                          }
-                          if (request->hasParam("wt5"))
-                          {
-                                  inputMessage = request->getParam("wt5")->value();
-                                  if (inputMessage != "")
-                                          wt[4] = inputMessage.toInt();
-                          }
-                          if (request->hasParam("dr1"))
-                          {
-                                  inputMessage = request->getParam("dr1")->value();
-                                  if (inputMessage != "")
-                                          dr[0] = inputMessage.toInt();
-                          }
-                          if (request->hasParam("dr2"))
-                          {
-                                  inputMessage = request->getParam("dr2")->value();
-                                  if (inputMessage != "")
+                                  String s = String(i + 1);
+                                  if (request->hasParam("wt" + s))
                                   {
-                                          dr[1] = inputMessage.toInt();
-                                          //   timeseqIndex = 2;
+                                          inputMessage = request->getParam("wt" + s)->value();
+                                          if (!inputMessage.isEmpty())
+                                                  wt[i] = inputMessage.toInt();
                                   }
-                          }
-                          if (request->hasParam("dr3"))
-                          {
-                                  inputMessage = request->getParam("dr3")->value();
-                                  if (inputMessage != "")
+                                  if (request->hasParam("dr" + s))
                                   {
-                                          dr[2] = inputMessage.toInt();
-                                          //   timeseqIndex = 3;
-                                  }
-                          }
-                          if (request->hasParam("dr4"))
-                          {
-                                  inputMessage = request->getParam("dr4")->value();
-                                  if (inputMessage != "")
-                                          dr[3] = inputMessage.toInt();
-                          }
-                          if (request->hasParam("dr5"))
-                          {
-                                  inputMessage = request->getParam("dr5")->value();
-                                  if (inputMessage != "")
-                                  {
-                                          dr[4] = inputMessage.toInt();
-                                          //   timeseqIndex = 5;
+                                          inputMessage = request->getParam("dr" + s)->value();
+                                          if (!inputMessage.isEmpty())
+                                                  dr[i] = inputMessage.toInt();
                                   }
                           }
 
@@ -442,7 +380,8 @@ void setupnetwork()
                                   inputParam = "inputint1";
                                   Serial.print("ssid client=  ");
                                   Serial.println(inputMessage);
-                                  if (inputMessage != "")
+
+                                  if (!inputMessage.isEmpty())
                                   {
                                           for (int i = 0; i < 32; i++)
                                           {
