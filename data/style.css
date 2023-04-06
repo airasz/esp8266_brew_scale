@@ -116,7 +116,6 @@ input[type=submit]:hover {
   transition: 0.3s;
   background-color: rgb(243, 243, 243);
   margin-top: 0mm;
-  display: block;
   margin-right: 5mm;
   /* padding-bottom: 5mm; */
   min-width: 9cm;
@@ -128,7 +127,7 @@ input[type=submit]:hover {
   flex-flow: row wrap;
   /* flex-wrap: inherit; */
   flex-direction: column;
-  display: inline-block;
+  display: inline;
   /*centering card
   /* flex-wrap: wrap; */
   /* position: relative; */
@@ -220,14 +219,11 @@ input[type=text] {
   color: rgb(0, 75, 4);
   text-size-adjust: 32px;
   text-align: center;
-
-
 }
 
 
 /* Style the tab */
 .tab {
-
   overflow: hidden;
   /* border: 1px solid #ccc; */
   background-color: rgb(206, 206, 206);
@@ -266,7 +262,6 @@ input[type=text] {
   padding: 6px 12px;
   /* border: 1px solid #ccc; */
   border-top: none;
-
   background-color: rgb(221, 221, 221);
 }
 
