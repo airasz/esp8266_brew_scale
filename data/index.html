@@ -34,12 +34,15 @@ design by airasz
 
       <!--  ===============TAB HOME============= -->
       <div id="Action" class="tabcontent">
-        <button id="btnabort" class="button1" onclick="abort()" style="display: block;">abort</button>
-        <p4 style="margin-top:1cm;">
-          <span class="light-labels">timer: </span>
-          <span id="light" style="color: rgb(43, 42, 42);font-size: 72px;font-weight: lighter;">%LIGHT%</span>
-          <!-- <sup class="units">&deg;C</sup> -->
-        </p4><br>
+        <div id="divtimer">
+          <button id="btnabort" class="button1" onclick="abort()" style="display: block;">abort</button>
+          <p4 style="margin-top:1cm;">
+            <span class="light-labels">timer: </span>
+            <span id="light" style="color: rgb(43, 42, 42);font-size: 72px;font-weight: lighter;">%LIGHT%</span>
+            <!-- <sup class="units">&deg;C</sup> -->
+          </p4>
+        </div>
+        <br>
 
         <button id="btntare" class="button1" onclick="tare()">TARE</button>
         <p4>

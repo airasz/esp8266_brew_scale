@@ -32,6 +32,10 @@ function onMessage(event) {
         if (sdata.startsWith("tab")) {
             var iss = parseInt(sdata.substring(3));
             document.getElementById(iss).click();
+        } else if (sdata.startsWith("stimer")) {
+            document.getElementById("divtimer").style.display = "block"
+        } else if (sdata.startsWith("htimer")) {
+            document.getElementById("divtimer").style.display = "none"
         }
 
     } else if (event.data.startsWith("1")) {
@@ -49,6 +53,8 @@ function onMessage(event) {
     } else {
 
         var sdata = event.data.substring(2);
+
+
         printInfo(parseInt(event.data.substring(0, 1)), sdata);
         // alert("hai");
     }
@@ -140,9 +146,19 @@ function loadonce() {
     // rmp1();
     gettab();
     // alert("test");
-    if (send_get("/running") === "1") {
-        running = true;
-        interval = 500;
+    isSmart();
+    if (send_get("/running") == '1') {
+
+        alert("running=1");
+        // running = true;
+        // interval = 500;
+        document.getElementById("divtimer").style.display = "block";
+    } else if (send_get("/running") == '0') {
+
+        alert("running=0");
+        // running = true;
+        // interval = 500;
+        document.getElementById("divtimer").style.display = "none";
     }
 
 
@@ -252,19 +268,20 @@ function send_get(url) {
     return resp;
 }
 
-// function synctime() {
-//   var time = new Date();
-//   var xhttp = new XMLHttpRequest();
-//   xhttp.onreadystatechange = function () {
-//     if (this.readyState == 4 && this.status == 200) {
-//       document.getElementById("light").innerHTML = this.responseText;
-//     }
-//   };
-
-
-//   xhttp.open("GET", "/stime", true);
-//   xhttp.send();
-// }
+function isSmart() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText == '1') {
+                document.getElementById("divtimer").style.display = "block";
+            } else {
+                document.getElementById("divtimer").style.display = "none";
+            }
+        }
+    };
+    xhttp.open("GET", "/running", true);
+    xhttp.send();
+}
 function reboot() {
     var conf = confirm("Sure to reboot device?");
     if (conf) {
