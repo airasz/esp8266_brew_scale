@@ -213,7 +213,7 @@ void timbang()
   if (pour_limit_watch)
   {
     i_gram = int(grame);
-    if (i_gram > incwater - warning_threshold && i_gram < incwater)
+    if (i_gram > incwater - warning_threshold && i_gram < incwater) // yellow
     {
       // yellow led for almost water pour target
       if (beepwarning)
@@ -224,7 +224,7 @@ void timbang()
         NEO.show();
       }
     }
-    if (i_gram > wtarget)
+    if (i_gram > wtarget) // red
     {
       // red led for overpour
       //  incwater+=waterseq[waterseqCountIndex];
@@ -232,7 +232,7 @@ void timbang()
       NEO.setPixelColor(0, NEO.Color(b * 2, 0, 0));
       NEO.show();
     }
-    if (i_gram < wtarget - 8)
+    if (i_gram < wtarget - 8) // blue
     {
       int b = int(grame);
       // int bl = (incwater - b - 8) * 2;
@@ -244,7 +244,7 @@ void timbang()
     }
   }
 
-  if (grame > 1.5)
+  if (grame > 1.5) // normal mode
   {
     int b = int(grame);
     (b > 255) && (b = 255);
@@ -409,7 +409,6 @@ void pour_timer()
         if (inn != 0)
         {
           int w = wt[waterseqCountIndex];
-
           if (waterseqCountIndex < timeseqIndex)
           {
             String s = "pour next ";
@@ -424,6 +423,8 @@ void pour_timer()
 
         intervalInput = 10;
         beeping(2); // single beep
+        NEO.setPixelColor(0, NEO.Color(0, 0, 0));
+        NEO.show();
         if (bautotare)
           b_tare = 1;
       }
