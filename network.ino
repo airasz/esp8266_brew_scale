@@ -6,6 +6,14 @@ String getRandom()
         Serial.printf("random number %d\n ", rndnumber);
         return String(rndnumber);
 }
+// 1= single high short,  2 = single low, 3= single high long, 4= 4x low warning
+// 5 =single high short +  flash green
+void beeping(int mode)
+{
+        beepingMode = mode;
+        beepcount = 0;
+        previousMillisbeep = millis();
+}
 // Replaces placeholder with LED state value
 String processor(const String &var)
 {
@@ -278,7 +286,7 @@ void setupPort1()
 
                           NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                           NEO.show();
-                          beeping(3); // single beep
+                          beeping(5); // single beep
                           setup_step = 1;
                           tab = 1;
                           request->redirect("/");
@@ -313,7 +321,7 @@ void setupPort1()
                                           {
                                                   NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                                                   NEO.show();
-                                                  beeping(3); // single beep
+                                                  beeping(5); // single beep
                                                   calculate(pm);
                                                   setup_step = 2;
 
@@ -352,7 +360,7 @@ void setupPort1()
 
                           NEO.setPixelColor(0, NEO.Color(0, 200, 0));
                           NEO.show();
-                          beeping(3); // single beep
+                          beeping(5); // single beep
                           Serial.printf("timeseqindex = %d\n", timeseqIndex);
                           b_increment = 1; // activated increment water
                           incwater = 0;
@@ -429,11 +437,7 @@ void setupnetwork()
                           // breboot = 1;
                   });
 }
-void beeping(int mode)
-{
-        beepingMode = mode;
-        beepcount = 0;
-}
+
 void calculate(int mode)
 {
         switch (mode)

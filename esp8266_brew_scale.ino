@@ -151,7 +151,7 @@ void loop()
       yield();
       // scale.power_down();
       b_tare = 0;
-      beeping(3); // single beep
+      beeping(5); // single beep long + flash green
       Serial.println("end tare");
     }
     if (breboot)
@@ -169,7 +169,7 @@ void timbang()
 {
 
   // scale.power_up();
-  float grame = scale.get_units(getAverageRate) * 1000;
+  grame = scale.get_units(getAverageRate) * 1000;
   // yield();
   // detect water is pour
   if (b_increment)
@@ -218,10 +218,14 @@ void timbang()
       // yellow led for almost water pour target
       if (beepwarning)
       {
-        beeping(4); // single beep
+        beeping(4); // 4 beep
         beepwarning = false;
-        NEO.setPixelColor(0, NEO.Color(200, 150, 0));
-        NEO.show();
+        if (!timerseqCountIndex < timeseqIndex)
+
+        {
+          NEO.setPixelColor(0, NEO.Color(200, 150, 0));
+          NEO.show();
+        }
       }
     }
     if (i_gram > wtarget) // red
@@ -229,8 +233,12 @@ void timbang()
       // red led for overpour
       //  incwater+=waterseq[waterseqCountIndex];
       int b = int(grame);
-      NEO.setPixelColor(0, NEO.Color(b * 2, 0, 0));
-      NEO.show();
+      if (!timerseqCountIndex < timeseqIndex)
+
+      {
+        NEO.setPixelColor(0, NEO.Color(b * 2, 0, 0));
+        NEO.show();
+      }
     }
     if (i_gram < wtarget - 8) // blue
     {
@@ -312,7 +320,11 @@ void beep()
     if (beepingMode > 0)
     {
       beepcount += 1;
-      if (beepcount == 2)
+      if (beepcount == 1)
+      {
+        noTone(BUZZER_PIN);
+      }
+      else if (beepcount == 2)
       {
         if (beepingMode == 1)
         {
@@ -329,28 +341,22 @@ void beep()
         if (beepingMode == 3)
         {
           tone(BUZZER_PIN, NOTE_D8, BUZZER_CHANNEL);
-          // colore =RgbColor(0, 200, 0);
-          //  NEO.setPixelColor(0, NEO.Color(0, 0, 0));
-          //  NEO.show();
+        }
+        if (beepingMode == 5)
+        {
+          tone(BUZZER_PIN, NOTE_D8, BUZZER_CHANNEL);
+          NEO.setPixelColor(0, NEO.Color(0, 200, 0));
+          NEO.show();
         }
       }
       else if (beepcount == 4)
       {
         if (beepingMode == 1)
-        {
-          // noTone(BUZZER_PIN, BUZZER_CHANNEL);
           tone(BUZZER_PIN, NOTE_D8, BUZZER_CHANNEL);
-        }
         else if (beepingMode == 2)
-        {
-          // noTone(BUZZER_PIN, BUZZER_CHANNEL);
           tone(BUZZER_PIN, NOTE_A7, BUZZER_CHANNEL);
-        }
         else if (beepingMode == 4)
-        {
-
           tone(BUZZER_PIN, NOTE_A7, BUZZER_CHANNEL);
-        }
       }
       else if (beepcount == 6)
       {
@@ -361,6 +367,11 @@ void beep()
         //  NEO.show();
         //  noTone(BUZZER_PIN, BUZZER_CHANNEL);
         noTone(BUZZER_PIN);
+        if (beepingMode == 5)
+        {
+          NEO.setPixelColor(0, NEO.Color(0, 0, 0));
+          NEO.show();
+        }
         if (beepingMode == 4)
         {
           // Serial.printf("beeping mode = %d\n ", beepingMode );
@@ -422,7 +433,7 @@ void pour_timer()
         info2Lenght = nextp.length();
 
         intervalInput = 10;
-        beeping(2); // single beep
+        beeping(2); // single beep low note
         NEO.setPixelColor(0, NEO.Color(0, 0, 0));
         NEO.show();
         if (bautotare)
@@ -452,15 +463,36 @@ void pour_timer()
       }
       else
       {
-        smart_pour = 0;
-        s_sts2 = "done";
-        notifyClients(2, s_sts2);
+        intervalInput = 1000;
+        int b = int(grame);
+        Serial.printf("b grame  : %d \n", b);
+        if (b > 2)
+        {
 
-        notifyClients(0, "htimer"); // hide timer face
-        notifyClients(3, "enjoy your coffee");
-        b_increment = 0;
-        pourTimer = 0;
-        resetSmartValue();
+          beeping(1);
+          gstate = !gstate;
+          NEO.setPixelColor(0, (gstate) ? NEO.Color(0, 160, 0) : NEO.Color(0, 0, 0));
+          NEO.show();
+          if (count2++ == 2)
+          {
+            // count2 = 0;
+            notifyClients(3, "enjoy your coffee");
+            // notifyClients(3, "enjoy your coffee");
+          }
+        }
+        else
+        {
+          smart_pour = 0;
+          s_sts2 = "done";
+          notifyClients(2, s_sts2);
+          notifyClients(0, "htimer"); // hide timer face
+          notifyClients(3, "enjoy your coffee");
+          b_increment = 0;
+          pourTimer = 0;
+          resetSmartValue();
+          b_tare = 1;
+        }
+        lastPressed = millis();
       }
     } // end pourtimer==2
 
@@ -473,10 +505,8 @@ void resetSmartValue()
   b_increment = 0;
   pourTimer = 0;
   for (size_t i = 0; i < 5; i++)
-  {
-    wt[i] = 0;
-    dr[i] = 0;
-  }
+    wt[i] = 0, dr[i] = 0;
+
   wtarget = 0;
   incwater = 0;
   waterseqCountIndex = 0;

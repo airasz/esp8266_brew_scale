@@ -109,14 +109,16 @@ int wt[] = {0, 0, 0, 0, 0};
 int dr[] = {0, 0, 0, 0, 0};
 int pourtarget[] = {0, 0, 0, 0, 0, 0};
 int timerVal = 45;
-int duration = 30;
+int duration = 30; // 30
 int cf_t, wt_t, tab, setup_step, pm;
 auto countdown1 = 1, countdown2 = 1, countdown3 = 1;
 bool reversepin = 0, OFF, ON;
 auto running = false;
 auto warning_threshold = 8; // gram warning treshold
 bool bautotare = 0;
-int beepfreq = 0;
+float grame;
+int beepfreq = 0, count2 = 0;
+bool gstate = false;
 String _ssidAP()
 {
         String ssid;
@@ -170,3 +172,5 @@ String _passAP() // suggest by chatGBT
         Serial.println(pass);
         return pass;
 }
+// 1= single high short,  2 = single low, 3= single high long, 4= 4x low warning
+void beeping(int mode);
