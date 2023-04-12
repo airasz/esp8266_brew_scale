@@ -215,8 +215,6 @@ void startserver()
         server.on("/app.js", HTTP_GET, [](AsyncWebServerRequest *request)
                   { request->send(SPIFFS, "/app.js", "text/javascript"); });
 
-        server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request)
-                  { request->send(SPIFFS, "/favicon.ico", "image/x-icon"); });
         // Route to set GPIO to LOW
         server.on("/reboot", HTTP_GET, [](AsyncWebServerRequest *request)
                   {
