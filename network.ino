@@ -282,8 +282,8 @@ void setupPort1()
                           }
                           // request->send_P(200, "text/plain", "saved");
 
-                          NEO.setPixelColor(0, NEO.Color(0, 200, 0));
-                          NEO.show();
+                        //   NEO.setPixelColor(0, NEO.Color(0, 200, 0));
+                        //   NEO.show();
                           beeping(5); // single beep
                           setup_step = 1;
                           tab = 1;
@@ -307,8 +307,8 @@ void setupPort1()
                                           pm = inputMessage.substring(2).toInt();
                                           if (pm == 0)
                                           {
-                                                  NEO.setPixelColor(0, NEO.Color(200, 0, 0));
-                                                  NEO.show();
+                                                  //   NEO.setPixelColor(0, NEO.Color(200, 0, 0));
+                                                  //   NEO.show();
                                                   beeping(1); // single beep
                                                   setup_step = 1;
                                                   request->redirect("/");
@@ -317,8 +317,8 @@ void setupPort1()
                                           }
                                           else
                                           {
-                                                  NEO.setPixelColor(0, NEO.Color(0, 200, 0));
-                                                  NEO.show();
+                                                  //   NEO.setPixelColor(0, NEO.Color(0, 200, 0));
+                                                  //   NEO.show();
                                                   beeping(5); // single beep
                                                   calculate(pm);
                                                   setup_step = 2;
@@ -356,8 +356,8 @@ void setupPort1()
                                   }
                           }
 
-                          NEO.setPixelColor(0, NEO.Color(0, 200, 0));
-                          NEO.show();
+                          //   NEO.setPixelColor(0, NEO.Color(0, 200, 0));
+                          //   NEO.show();
                           beeping(5); // single beep
                           Serial.printf("timeseqindex = %d\n", timeseqIndex);
                           b_increment = 1; // activated increment water

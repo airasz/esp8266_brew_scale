@@ -237,8 +237,9 @@ void timbang()
       int b = int(grame);
       // int bl = (incwater - b - 8) * 2;
       int bl = map((incwater - b - 8) * 2, wt[waterseqCountIndex - 1], 0, 255, 0);
-      // int bl = map(b, wt[waterseqCountIndex - 1], wt[waterseqCountIndex], wt[waterseqCountIndex] - wt[waterseqCountIndex - 1], 0);
+      // int bl = map((incwater - b - 8) * 2, 255, 0, 255, 0);
       bl = constrain(bl, 0, 255);
+      Serial.printf("Blue value  : %d \n", bl);
       NEO.setPixelColor(0, NEO.Color(0, 0, bl));
       NEO.show();
     }
@@ -459,13 +460,14 @@ void pour_timer()
         intervalInput = 1000;
         int b = int(grame);
         Serial.printf("b grame  : %d \n", b);
+        pour_limit_watch = false;
         if (b > 2)
         {
 
-          beeping(1);
+          beeping(5);
           gstate = !gstate;
-          NEO.setPixelColor(0, (gstate) ? NEO.Color(0, 160, 0) : NEO.Color(0, 0, 0));
-          NEO.show();
+          // NEO.setPixelColor(0, (gstate) ? NEO.Color(0, 160, 0) : NEO.Color(0, 0, 0));
+          // NEO.show();
           if (count2++ == 2)
           {
             // count2 = 0;
@@ -494,7 +496,6 @@ void pour_timer()
 } // end void
 void resetSmartValue()
 {
-
   b_increment = 0;
   pourTimer = 0;
   for (size_t i = 0; i < 5; i++)
