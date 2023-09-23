@@ -12,7 +12,7 @@ design by airasz
   <meta http-equiv="cache-control" content="no-cache" />
   <meta http-equiv="Pragma" content="no-cache" />
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link id="theme" rel="stylesheet" type="text/css" href="style.css">
   <!-- <link rel="script" type="text/js" href="app.js"> -->
   <script src="app.js"></script>
 </head>
@@ -43,7 +43,8 @@ design by airasz
           </p4>
         </div>
         <br>
-
+ <button id="theme" class="button1" onclick="switchtheme()">change mode</button>
+       
         <button id="btntare" class="button1" onclick="tare()">TARE</button>
         <p4>
           <span class="mist-labels">weight: </span><br>
@@ -238,6 +239,21 @@ design by airasz
     }
     return color;
   }
+  function switchtheme() {
+  //  var element = document.body;
+  //  var el=document.getElementsByClassName('card_switch')
+  //  element.classList.toggle("dark-mode");
+  //    el.classList.toggle("dark-mode");
+
+
+    if (theme.getAttribute('href') == 'style.css') {
+                theme.setAttribute('href', 'dark.css');
+            } else {
+                theme.setAttribute('href', 'style.css');
+            }
+
+
+}
 </script>
 
 </html>
