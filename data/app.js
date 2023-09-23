@@ -142,6 +142,8 @@ function onLoad(event) {
     initButton();
 }
 function loadonce() {
+
+    getTheme();
     gettab();
     // alert("test");
     isSmart();
@@ -167,7 +169,25 @@ function loadonce() {
     // alert("test");
 
 }
+function getTheme() {
+    var xhttp = new XMLHttpRequest();
+    var btnn = document.getElementById("ctheme");
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var stime = this.responseText;
+            if (stime == "0") {
+                theme.setAttribute('href', 'style.css');
+                btnn.innerHTML = "switch to dark";
+            } else if (stime == "1") {
+                theme.setAttribute('href', 'dark.css');
+                btnn.innerHTML = "switch to light";
+            }
+        }
+    };
 
+    xhttp.open("GET", "/theme", true);
+    xhttp.send();
+}
 
 
 function gettab() {

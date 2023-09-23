@@ -13,22 +13,22 @@
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 
-#include "HX711.h" // Library
+#include "HX711.h"  // Library
 
 // #include <Tone32.h>
 #include "note.h"
 
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
-#include <avr/power.h> // Required for 16 MHz Adafruit Trinket
+#include <avr/power.h>  // Required for 16 MHz Adafruit Trinket
 #endif
 
 // #include <NeoPixelBus.h>
 // #include <NeoPixelAnimator.h>
 
-const uint16_t PixelCount = 1; //
+const uint16_t PixelCount = 1;  //
 
-const uint8_t PixelPin = 13; //
+const uint8_t PixelPin = 13;  //
 
 // NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> NEO(PixelCount, PixelPin);
 
@@ -37,27 +37,27 @@ Adafruit_NeoPixel NEO(PixelCount, PixelPin, NEO_GRB + NEO_KHZ800);
 uint16_t colore;
 #define TARE_PIN 14
 
-#define DOUT 12 // Arduino pin 6 connect to HX711 DOUT
-#define CLK 14  //  Arduino pin 5 connect to HX711 CLK
+#define DOUT 12  // Arduino pin 6 connect to HX711 DOUT
+#define CLK 14   //  Arduino pin 5 connect to HX711 CLK
 
-int getAverageRate = 8; // average rate value of load cell reading
-HX711 scale;            // Init of library
+int getAverageRate = 8;  // average rate value of load cell reading
+HX711 scale;             // Init of library
 
 #define BUZZER_PIN 15
 #define BUZZER_CHANNEL 0
-int beepingMode = 0; // 0: double beep rise 1:double beep fall 2:single beep
+int beepingMode = 0;  // 0: double beep rise 1:double beep fall 2:single beep
 
 int incwater = 0;
 bool pour_limit_watch = 0;
 
-int timeseqIndex = 0;       //
-int waterseqIndex = 0;      // total sequence step
-int waterseqCountIndex = 0; // sequence step progress
+int timeseqIndex = 0;        //
+int waterseqIndex = 0;       // total sequence step
+int waterseqCountIndex = 0;  // sequence step progress
 int timerseqCountIndex = 0;
 int displayCount = 0;
 int wtarget;
 bool b_tare = 0;
-bool b_increment = 0; // enable/disable increment
+bool b_increment = 0;  // enable/disable increment
 int incrementValue = 0;
 int i_gram = 0;
 float old_grame;
@@ -76,20 +76,19 @@ long lastPressed = 0;
 int beepcount = 0;
 #define EEPROM_SIZE 640
 #define CONFIG_REVISION 12349L
-typedef struct config_t
-{
-        long magic_number;
+typedef struct config_t {
+  long magic_number;
 
-        uint8_t pour_mode;
-        uint8_t interval1;
-        uint8_t duration1;
-        uint8_t interval2;
-        uint8_t duration2;
-        uint8_t interval3;
-        uint8_t duration3;
-        bool lstatic;
-
-        bool openAP;
+  uint8_t pour_mode;
+  uint8_t interval1;
+  uint8_t duration1;
+  uint8_t interval2;
+  uint8_t duration2;
+  uint8_t interval3;
+  uint8_t duration3;
+  bool lstatic;
+  bool openAP;
+  uint8_t theme;  // 0=light, 1=dark
 
 } CONFIGGEN;
 CONFIGGEN config;
@@ -105,72 +104,63 @@ auto interv1 = 1, interv2 = 1, interv3 = 1, durat1 = 1, durat2 = 1, durat3 = 1;
 auto hn1 = 0, mn1 = 0, hf1 = 0, mf1 = 0, hn2 = 0, mn2 = 0, hf2 = 0, mf2 = 0, hn3 = 0, mn3 = 0, hf3 = 0, mf3 = 0;
 auto wt1 = 0, wt2 = 0, wt3 = 0, wt4 = 0, wt5 = 0;
 auto dr1 = 0, dr2 = 0, dr3 = 0, dr4 = 0, dr5 = 0;
-int wt[] = {0, 0, 0, 0, 0};
-int dr[] = {0, 0, 0, 0, 0};
-int pourtarget[] = {0, 0, 0, 0, 0, 0};
+int wt[] = { 0, 0, 0, 0, 0 };
+int dr[] = { 0, 0, 0, 0, 0 };
+int pourtarget[] = { 0, 0, 0, 0, 0, 0 };
 int timerVal = 45;
-int duration = 30; // 30
+int duration = 30;  // 30
 int cf_t, wt_t, tab, setup_step, pm;
 auto countdown1 = 1, countdown2 = 1, countdown3 = 1;
 bool reversepin = 0, OFF, ON;
 auto running = false;
-auto warning_threshold = 8; // gram warning treshold
+auto warning_threshold = 8;  // gram warning treshold
 bool bautotare = 0;
 float grame;
 int beepfreq = 0, count2 = 0;
 bool gstate = false;
-String _ssidAP()
-{
-        String ssid;
-        for (int i = 512; i < 512 + 32; i++)
-        {
-                char c = EEPROM.read(i); // read once instead of twice
-                if (c > 31 && c <= 127)
-                { // avoid using int() and check range in one comparison
-                        ssid += c;
-                }
-        }
-        return ssid;
+String _ssidAP() {
+  String ssid;
+  for (int i = 512; i < 512 + 32; i++) {
+    char c = EEPROM.read(i);   // read once instead of twice
+    if (c > 31 && c <= 127) {  // avoid using int() and check range in one comparison
+      ssid += c;
+    }
+  }
+  return ssid;
 }
-String _passAP_()
-{
-        String pass;
-        for (int i = 512 + 32; i < 512 + 64; i++)
-        {
-                if (int(EEPROM.read(i)) > 31)
-                {
-                        pass += char(EEPROM.read(i));
-                }
-        }
-        // pass.replace(/ [^\x00 -\x7F] / g, "");
-        if (pass == "")
-                pass = "no_password";
+String _passAP_() {
+  String pass;
+  for (int i = 512 + 32; i < 512 + 64; i++) {
+    if (int(EEPROM.read(i)) > 31) {
+      pass += char(EEPROM.read(i));
+    }
+  }
+  // pass.replace(/ [^\x00 -\x7F] / g, "");
+  if (pass == "")
+    pass = "no_password";
 
-        Serial.print("pass=");
-        Serial.println(pass);
-        return pass;
+  Serial.print("pass=");
+  Serial.println(pass);
+  return pass;
 }
-String _passAP() // suggest by chatGBT
+String _passAP()  // suggest by chatGBT
 {
-        String pass;
-        pass.reserve(32); // reserve memory for the String
+  String pass;
+  pass.reserve(32);  // reserve memory for the String
 
-        for (int i = 512 + 32; i < 512 + 64; i++)
-        {
-                char c = EEPROM.read(i);
-                if (c > 31)
-                {
-                        pass += c;
-                }
-        }
+  for (int i = 512 + 32; i < 512 + 64; i++) {
+    char c = EEPROM.read(i);
+    if (c > 31) {
+      pass += c;
+    }
+  }
 
-        if (pass.isEmpty())
-        {
-                pass = "no_password";
-        }
-        Serial.print("pass=");
-        Serial.println(pass);
-        return pass;
+  if (pass.isEmpty()) {
+    pass = "no_password";
+  }
+  Serial.print("pass=");
+  Serial.println(pass);
+  return pass;
 }
 // 1= single high short,  2 = single low, 3= single high long, 4= 4x low warning
 void beeping(int mode);

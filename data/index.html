@@ -24,8 +24,9 @@ design by airasz
     <div id="info" style="min-height: 1cm;margin-bottom: 4mm;">
     </div>
     <div class="card-body">
-
-      <div class="tab" style="background-color:  rgb(243, 243, 243);">
+ <button id="ctheme" class="button1" onclick="switchtheme()">change mode</button>
+       
+      <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Action')" id="0">HOME</button>
         <button class="tablinks" onclick="openTab(event, 'port')" id="1">POURING SETUP</button>
         <button class="tablinks" onclick="openTab(event, 'setup')" id="2">SETUP</button>
@@ -38,18 +39,17 @@ design by airasz
           <button id="btnabort" class="button1" onclick="abort()" style="display: block;">abort</button>
           <p4 style="margin-top:1cm;">
             <span class="light-labels">timer: </span>
-            <span id="light" style="color: rgb(43, 42, 42);font-size: 72px;font-weight: lighter;">%LIGHT%</span>
+            <span class="numb" id="light" >%LIGHT%</span>
             <!-- <sup class="units">&deg;C</sup> -->
           </p4>
         </div>
         <br>
- <button id="theme" class="button1" onclick="switchtheme()">change mode</button>
-       
+
         <button id="btntare" class="button1" onclick="tare()">TARE</button>
         <p4>
           <span class="mist-labels">weight: </span><br>
-          <span id="mist" style="color: rgb(43, 42, 42);font-weight: lighter;">%MIST%</span>
-          <span style="color: grey;font-size: large;font-weight: lighter;">%wgh%</span>
+          <span class="numb" id="mist" >%MIST%</span>
+          <span style="font-size: 46px;" >%wgh%</span>
           <!-- <sup class="units">&deg;C</sup> -->
         </p4><br>
         <!-- <h2 id="counterint" style="font-size: 20px;" class="card-title">°C</h2> -->
@@ -246,12 +246,34 @@ design by airasz
   //    el.classList.toggle("dark-mode");
 
 
-    if (theme.getAttribute('href') == 'style.css') {
-                theme.setAttribute('href', 'dark.css');
-            } else {
+    // if (theme.getAttribute('href') == 'style.css') {
+    //             theme.setAttribute('href', 'dark.css');
+    //         } else {
+    //             theme.setAttribute('href', 'style.css');
+    //         }
+
+    var xhttp = new XMLHttpRequest();
+    var btnn = document.getElementById("ctheme");
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var stime = this.responseText;
+            if (stime == "0") {
                 theme.setAttribute('href', 'style.css');
+                btnn.innerHTML = "switch to dark";
+                // alert("change theme");
+            } else if (stime == "1") {
+                theme.setAttribute('href', 'dark.css');
+                btnn.innerHTML = "switch to light";
             }
 
+            // for (let i = 0; i < iss + 1; i++) {
+            //     document.getElementById("p_step" + iss).style.display = "block";
+            // }
+        }
+    };
+
+    xhttp.open("GET", "/changetheme", true);
+    xhttp.send();
 
 }
 </script>

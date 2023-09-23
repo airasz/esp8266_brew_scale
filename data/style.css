@@ -161,6 +161,12 @@ h2 {
 
 }
 
+.numb {
+  color: #414141;
+  font-size: 72px;
+  font-weight: lighter;
+}
+
 div p6 {
   color: rgb(242, 248, 188);
   font-family: 'Segoe UI', sans-serif;
