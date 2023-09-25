@@ -4,6 +4,7 @@ var running_2 = false;
 var running_3 = false;
 var running = false;
 var interval = 1000;
+var rcolor = ["#e60000", "#e65c00", "#e6e600", "#008000", "#0000e6", "#e6005c", "#b300b3", "#00e600", "#005ce6", "#ff00bf"];
 
 
 var gateway = `ws://${window.location.hostname}/ws`;
@@ -40,7 +41,7 @@ function onMessage(event) {
 
     } else if (event.data.startsWith("1")) {
         var sdata = event.data.substring(2);
-        var el = document.getElementById("mist");
+        var el = document.getElementById("mist");//wieght value
         if (sdata.length > 5) {
             el.style.fontSize = "56px"
         } else {
@@ -49,12 +50,10 @@ function onMessage(event) {
         el.innerHTML = sdata;
     } else if (event.data.startsWith("2")) {
         var sdata = event.data.substring(2);
-        document.getElementById("light").innerHTML = sdata;
+        document.getElementById("light").innerHTML = sdata;// timer clock
     } else {
 
         var sdata = event.data.substring(2);
-
-
         printInfo(parseInt(event.data.substring(0, 1)), sdata);
         // alert("hai");
     }
@@ -176,7 +175,7 @@ function getTheme() {
         if (this.readyState == 4 && this.status == 200) {
             var stime = this.responseText;
             if (stime == "0") {
-                theme.setAttribute('href', 'style.css');
+                theme.setAttribute('href', 'light.css');
                 btnn.innerHTML = "switch to dark";
             } else if (stime == "1") {
                 theme.setAttribute('href', 'dark.css');
@@ -250,6 +249,7 @@ function send_get(url) {
 }
 
 function isSmart() {
+    // hidden setup and pour tab
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -287,3 +287,24 @@ function setsync() {
 }
 
 
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var lettersDark = '0123456789A';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += lettersDark[Math.floor(Math.random() * lettersDark.length)];
+    }
+    return color;
+}
+function getRandomColorMajor() {
+    var rndnum = 0;
+    var colorrt;
+    const d = new Date();
+    let seconds = d.getSeconds().toString;
+    if (seconds > 9) {
+        return rcolor[parseInt(seconds.substring(1))];
+    } else {
+        return rcolor[parseInt(seconds)]
+    }
+
+}

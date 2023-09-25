@@ -36,9 +36,6 @@ input[type=reset],
 input[type=option] {
 
   background-color: transparent;
-  border: chartreuse;
-  border: solid 1px orange;
-  color: rgb(255, 208, 0);
   padding: 10px;
   text-align: center;
   text-decoration: none;
@@ -68,13 +65,13 @@ input[type=submit]:hover {
 
 .button1 {
   background-color: transparent;
-  border: chartreuse;
-  border: solid 1px rgb(180, 117, 0);
-  color: rgb(0, 100, 95);
+  /* border: chartreuse; */
+  border: solid 2px rgb(180, 117, 0);
+  /* color: rgb(0, 100, 95); */
   padding: 4px;
   text-align: center;
   text-decoration: none;
-  border-radius: 30px;
+  border-radius: 8px;
   display: flex;
   font-size: 16px;
   margin: 4px 2px;
@@ -223,7 +220,7 @@ input[type=text] {
   border: 1px solid rgb(184, 204, 0);
   border-radius: 6px;
   background-color: rgb(233, 231, 231);
-  color: rgb(0, 75, 4);
+  color: rgb(15, 15, 15);
   text-size-adjust: 32px;
   text-align: center;
 
