@@ -1,0 +1,131 @@
+h1 {
+    color: rgb(0, 120, 141);
+    /* padding: 0vh; */
+}
+
+
+
+input[type=submit],
+input[type=reset],
+input[type=option] {
+
+    background-color: transparent;
+    border: chartreuse;
+    border: solid 1px orange;
+    color: rgb(255, 208, 0);
+}
+
+input[type=submit]:hover {
+
+    background-color: yellow;
+    color: rgb(36, 29, 1);
+}
+
+.cars {
+    border-color: #f44336;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(196, 195, 195);
+    /* Firefox */
+}
+
+.button1 {
+    background-color: transparent;
+    border: rgb(93, 187, 0);
+    border: solid 1px rgb(180, 117, 0);
+    color: rgb(0, 100, 95);
+}
+
+.port {
+    background-color: transparent;
+    border: chartreuse;
+    border: solid 1px rgb(33, 114, 0);
+    color: rgb(100, 57, 0);
+}
+
+
+
+
+.card_switch {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: rgb(243, 243, 243);
+}
+
+
+/* On mouse-over, add a deeper shadow */
+
+h2 {
+    color: rgb(61, 2, 2);
+}
+
+.numb {
+    color: #414141;
+}
+
+div p6 {
+    color: rgb(242, 248, 188);
+}
+
+div p3 {
+    color: rgb(255, 102, 0);
+}
+
+div p5 {
+    color: rgb(65, 0, 22);
+}
+
+/* https://blogfonts.com/download/p-53339-1/Predator.file */
+div p4 {
+    color: #2196F3;
+}
+
+div p6 {
+    color: wheat;
+}
+
+input[type=text] {
+    border: 1px solid rgb(184, 204, 0);
+    background-color: rgb(233, 231, 231);
+    color: rgb(15, 15, 15);
+}
+
+
+/* Style the tab */
+.tab {
+    background-color: rgb(243, 243, 243);
+}
+
+.tablinks {
+    display: inline;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: rgb(243, 243, 243);
+    color: rgb(70, 70, 70);
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: rgb(253, 253, 253);
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: rgb(221, 221, 221);
+    color: rgb(29, 29, 29);
+}
+
+/* Style the tab content */
+.tabcontent {
+    background-color: rgb(221, 221, 221);
+}
+
+
+
+.switch_led {
+    background-color: rgb(61, 61, 61);
+}
