@@ -55,9 +55,13 @@ input[type=submit]:hover {
 .card_switch {
         /* Add shadows to create the "card" effect */
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        background-color: rgb(46, 46, 46);
+        background-color: rgba(46, 46, 46, 0.648);
 }
 
+.card-body {
+
+        border-radius: 12px 12px 12px 12px;
+}
 
 /* On mouse-over, add a deeper shadow */
 
@@ -100,7 +104,9 @@ input[type=text] {
 
 /* Style the tab */
 .tab {
-        background-color: rgb(0, 0, 0);
+
+        /* background-color: rgba(0, 0, 0, 0.698); */
+        background-color: transparent;
 }
 
 .tablinks {
@@ -109,7 +115,8 @@ input[type=text] {
 
 /* Style the buttons inside the tab */
 .tab button {
-        background-color: rgb(46, 46, 46);
+
+        background-color: transparent;
         color: rgb(160, 160, 160);
 }
 
@@ -120,13 +127,18 @@ input[type=text] {
 
 /* Create an active/current tablink class */
 .tab button.active {
-        background-color: rgb(0, 0, 0);
+
+        border-radius: 12px 12px 0px 0px;
+        background-color: rgba(0, 0, 0, 0.698);
         color: rgb(0, 195, 255);
 }
 
 /* Style the tab content */
 .tabcontent {
-        background-color: rgb(0, 0, 0);
+        /* background-color: rgb(0, 0, 0); */
+
+        border-radius: 0px 0px 12px 12px;
+        background-color: rgba(0, 0, 0, 0.698);
 }
 
 
