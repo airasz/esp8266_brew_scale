@@ -52,7 +52,7 @@ input[type=submit]:hover {
     /* Add shadows to create the "card" effect */
 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-color: rgba(255, 255, 255, 0.542);
+    background-color: rgba(255, 255, 255, 0.397);
 }
 
 .card-body {
@@ -121,7 +121,7 @@ input[type=text] {
 /* Create an active/current tablink class */
 .tab button.active {
 
-    border-radius: 12px 12px 0px 0px;
+
     background-color: rgba(255, 255, 255, 0.474);
     color: rgb(29, 29, 29);
 }
@@ -129,8 +129,7 @@ input[type=text] {
 /* Style the tab content */
 .tabcontent {
 
-    border-radius: 0px 0px 12px 12px;
-    background-color: rgba(255, 255, 255, 0.474);
+    background-color: rgba(255, 255, 255, 0.374);
 }
 
 

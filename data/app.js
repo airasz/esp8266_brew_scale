@@ -316,6 +316,6 @@ function drawbggradient() {
     // x.style.background = "linear - gradient(90deg, rgba(2, 0, 36, 1) 0 %, rgba(13, 200, 28, 1) 0 %, rgba(2, 182, 223, 1) 78 %, rgba(0, 111, 182, 1) 100 %)";
 
     // x.style.background = "#004455";
-    x.setAttribute("style", "background-image: linear-gradient(to right, #e00381, #e70092, #ec00a5, #ee0eb9, #a2138b, #cbe810, #a87afa, #3c70d2, #088dec, #00caff, #bed22c, #5ff4fb);");
+    // x.setAttribute("style", "background-image: linear-gradient(to right, #e00381, #e70092, #ec00a5, #ee0eb9, #a2138b, #cbe810, #a87afa, #3c70d2, #088dec, #00caff, #bed22c, #5ff4fb);");
 
 }
