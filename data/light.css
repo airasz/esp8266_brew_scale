@@ -122,7 +122,7 @@ input[type=text] {
 .tab button.active {
 
 
-    background-color: rgba(255, 255, 255, 0.474);
+    background-color: rgba(255, 255, 255, 0.374);
     color: rgb(29, 29, 29);
 }
 
