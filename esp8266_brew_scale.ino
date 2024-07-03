@@ -1,6 +1,6 @@
 // esp8266 smart brew scale
 // board wemos di mini clone
-// config: CPUfreq = 26Mhz, partition = 1mb OTA/ 1mb SPIFFS
+// config: CPUfreq = 26Mhz, partition = 256kb OTA/ 1mb LittleFS
 
 #include "esp8266_brew_scale.h"
 
@@ -20,10 +20,10 @@ void setup()
   // put your setup code here, to run once:
   delay(1000);
   Serial.begin(115200);
-  // Initialize SPIFFS
-  if (!SPIFFS.begin())
+  // Initialize LittleFS
+  if (!LittleFS.begin())
   {
-    Serial.println("An Error has occurred while mounting SPIFFS");
+    Serial.println("An Error has occurred while mounting LittleFS");
     return;
   }
 

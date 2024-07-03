@@ -227,9 +227,7 @@ function isSmart() {
 function reboot() {
     var conf = confirm("Sure to reboot device?");
     if (conf) {
-
         var xhttp = new XMLHttpRequest();
-
         xhttp.open("GET", "/reboot", true);
         xhttp.send();
     }
