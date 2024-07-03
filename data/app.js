@@ -64,68 +64,24 @@ function onMessage(event) {
 }
 function printInfo(mode, msg) {
     // var pop = document.getElementById("popinfo");
+    var bcol = ["rgb(0, 204, 255)", "yellow", "red"];
     var popi = document.getElementById("info");
     var tO = 4000;
-    switch (mode) {
-        case 3:
-            //regular info 
-            // var popi = document.getElementById("info");
-            var rnd = Math.floor(Math.random() * 100);
-            var par = document.createElement("h4");
-            var t = document.createTextNode(msg);
-            var sid = "id_" + String(rnd);
-            par.setAttribute("id", sid.split(''));
-            par.style.backgroundColor = "rgb(0, 204, 255)";
-            par.style.marginTop = "1mm"; par.style.marginBottom = "1mm";
-            // par.innerText = msg;
-            par.appendChild(t);
-            popi.appendChild(par);
-            tO += (msg.length * 100);
-            if (msg.startsWith("enjoy")) {
-                tO += 15000;
-                document.getElementById("1").style.display = "inline";
-                document.getElementById("2").style.display = "inline";
-            }
-            setTimeout(function () { par.remove(); }, tO);
-            // setTimeout(clearinfo(sid), 3000);
-            // alert("info 1");
-            break;
-        case 4:
-            // warning info
-            // var popi = document.getElementById("info");
-            var rnd = Math.floor(Math.random() * 100);
-            var par = document.createElement("h4");
-            var t = document.createTextNode(msg);
-            var sid = "id_" + String(rnd);
-            par.setAttribute("id", sid.split(''));
-            par.style.marginTop = "1mm"; par.style.marginBottom = "1mm";
-            par.style.backgroundColor = "yellow";
-            par.style.fontWeight = "lighter";
-            // par.innerText = msg;
-            par.appendChild(t);
-            popi.appendChild(par);
-            tO += (msg.length * 100);
-            setTimeout(function () { par.remove(); }, tO);
-            break;
-        case 5:
-            //erorr info
-            var rnd = Math.floor(Math.random() * 100);
-            var par = document.createElement("h4");
-            var t = document.createTextNode(msg);
-            var sid = "id_" + String(rnd);
-            par.setAttribute("id", sid.split(''));
-            par.style.marginTop = "1mm"; par.style.marginBottom = "1mm";
-            par.style.backgroundColor = "red";
-            // par.innerText = msg;
-            par.appendChild(t);
-            popi.appendChild(par);
-            tO += (msg.length * 100);
-            setTimeout(function () { par.remove(); }, tO);
-            break;
+    tO += (msg.length * 100);
+    var rnd = Math.floor(Math.random() * 100);
+    var par = document.createElement("h4");
+    par.style.backgroundColor = bcol[mode - 3];
+    par.setAttribute("id", sid.split(''));
+    var t = document.createTextNode(msg);
+    var sid = "id_" + String(rnd);
 
-        default:
-            break;
+    par.appendChild(t);
+    popi.appendChild(par); if (msg.startsWith("enjoy")) {
+        tO += 15000;
+        document.getElementById("1").style.display = "inline";
+        document.getElementById("2").style.display = "inline";
     }
+    setTimeout(function () { par.remove(); }, tO);
 
     // pop.style.display = "block";
     // pop.innerHTML = msg;
