@@ -27,6 +27,25 @@ void setup()
     return;
   }
 
+  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
+  {
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ; // Don't proceed, loop forever
+  }
+  display.display();
+  delay(2000); // Pause for 2 seconds
+
+  // Clear the buffer
+  display.clearDisplay();
+  display.setTextColor(WHITE);
+  // Show initial display buffer contents on the screen --
+  // the library initializes this with an Adafruit splash screen.
+  display.setCursor(2, 20);
+  display.setTextSize(2);
+  display.print("Hi!");
+  display.display();
   OFF = (!reversepin) ? 0 : 1;
   ON = (!reversepin) ? 1 : 0;
 
@@ -100,6 +119,15 @@ void setup()
   // If you're doing some debug output to serial, this should go in that section
   Serial.print("Host Name: ");
   Serial.println(WiFi.hostname());
+  display.clearDisplay();
+
+  display.setFont(&FreeMono9pt7b);
+  display.setTextSize(1);
+  display.setCursor(0, 10);
+  display.print("gram");
+
+  display.setTextSize(2);
+  // display.setTextSize(3);
 }
 
 void connectToAP()
@@ -300,6 +328,13 @@ void timbang()
   if (old_sts1 != s_sts1)
   {
     notifyClients(1, s_sts1);
+    display.setTextColor(BLACK);
+    display.setCursor(2, 56);
+    display.print(old_sts1);
+    display.setCursor(2, 56);
+    display.setTextColor(WHITE);
+    display.print(s_sts1);
+    display.display();
     old_sts1 = s_sts1;
   }
 }
