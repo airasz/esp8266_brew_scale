@@ -132,6 +132,7 @@ bool bautotare = 0;
 float grame;
 int beepfreq = 0, count2 = 0;
 bool gstate = false;
+bool noDisplay = false;
 String _ssidAP()
 {
   String ssid;

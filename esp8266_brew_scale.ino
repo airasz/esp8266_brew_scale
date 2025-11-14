@@ -31,21 +31,25 @@ void setup()
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
   {
     Serial.println(F("SSD1306 allocation failed"));
-    for (;;)
-      ; // Don't proceed, loop forever
+    noDisplay = true;
+    // for (;;)
+    ; // Don't proceed, loop forever
   }
   display.display();
   delay(2000); // Pause for 2 seconds
 
   // Clear the buffer
-  display.clearDisplay();
-  display.setTextColor(WHITE);
-  // Show initial display buffer contents on the screen --
-  // the library initializes this with an Adafruit splash screen.
-  display.setCursor(2, 20);
-  display.setTextSize(2);
-  display.print("Hi!");
-  display.display();
+  if (!noDisplay)
+  {
+    display.clearDisplay();
+    display.setTextColor(WHITE);
+    // Show initial display buffer contents on the screen --
+    // the library initializes this with an Adafruit splash screen.
+    display.setCursor(2, 20);
+    display.setTextSize(2);
+    display.print("Hi!");
+    display.display();
+  }
   OFF = (!reversepin) ? 0 : 1;
   ON = (!reversepin) ? 1 : 0;
 
@@ -114,19 +118,24 @@ void setup()
   }
   b_lstatic = config.lstatic;
   // connectToAP();
+  startUpMelody();
   Serial.println("starting server");
   startserver();
   // If you're doing some debug output to serial, this should go in that section
   Serial.print("Host Name: ");
   Serial.println(WiFi.hostname());
-  display.clearDisplay();
+  if (!noDisplay)
+  {
+    display.clearDisplay();
 
-  display.setFont(&FreeMono9pt7b);
-  display.setTextSize(1);
-  display.setCursor(0, 10);
-  display.print("gram");
+    display.setFont(&FreeMono9pt7b);
+    display.setTextSize(1);
+    display.setCursor(0, 10);
+    display.print("gram");
 
-  display.setTextSize(2);
+    display.setTextSize(2);
+  }
+  delay(50);
   // display.setTextSize(3);
 }
 
@@ -328,13 +337,16 @@ void timbang()
   if (old_sts1 != s_sts1)
   {
     notifyClients(1, s_sts1);
-    display.setTextColor(BLACK);
-    display.setCursor(2, 56);
-    display.print(old_sts1);
-    display.setCursor(2, 56);
-    display.setTextColor(WHITE);
-    display.print(s_sts1);
-    display.display();
+    if (!noDisplay)
+    {
+      display.setTextColor(BLACK);
+      display.setCursor(2, 56);
+      display.print(old_sts1);
+      display.setCursor(2, 56);
+      display.setTextColor(WHITE);
+      display.print(s_sts1);
+      display.display();
+    }
     old_sts1 = s_sts1;
   }
 }
@@ -581,4 +593,23 @@ String _pass()
   }
   // pass.replace(/ [^\x00 -\x7F] / g, "");
   return pass;
+}
+
+void startUpMelody()
+{
+  int melody[] = {2093, 2637, 3136};
+  int noteDurations[] = {120, 120, 120};
+  for (int thisNote = 0; thisNote < 3; thisNote++)
+  {
+    // int noteDuration = 1000 / noteDurations[thisNote];
+    // tone(BUZZER_PIN, melody[thisNote], noteDurations[thisNote]);
+    tone(BUZZER_PIN, melody[thisNote], BUZZER_CHANNEL);
+    delay(noteDurations[thisNote]);
+    // digitalWrite(8, LOW);
+    // delay(noteDuration * 1.30);
+    // noTone(BUZZER_PIN);
+    // digitalWrite(8, HIGH);
+    // delay(50);
+  }
+  noTone(BUZZER_PIN);
 }
