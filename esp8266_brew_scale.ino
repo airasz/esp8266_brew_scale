@@ -1,6 +1,6 @@
 // esp8266 smart brew scale
 // board wemos di mini clone
-// config: CPUfreq = 26Mhz, partition = 256kb OTA/ 1mb LittleFS
+// config: CPUfreq = 80 Mhz, partition = 256kb OTA/ 1mb LittleFS
 
 #include "esp8266_brew_scale.h"
 
