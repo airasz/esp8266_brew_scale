@@ -28,7 +28,8 @@ design by airasz
       <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Action')" id="0">HOME</button>
         <button class="tablinks" onclick="openTab(event, 'port')" id="1">POURING SETUP</button>
-        <button class="tablinks" onclick="openTab(event, 'setup')" id="2">SETUP</button>
+        <button class="tablinks" onclick="openTab(event, 'sm')" id="2">SIMPLE MIXING</button>
+        <button class="tablinks" onclick="openTab(event, 'setup')" id="3">SETUP</button>
       </div>
       <!--  ===============TAB HOME============= -->
       <div id="Action" class="tabcontent">
@@ -103,6 +104,39 @@ design by airasz
           </div>
         </div> <!-- end port1-->
       </div><!-- and id port-->
+      <!--  ===============SIMPLE MIXING ============= -->
+      <div id="sm" class="tabcontent">
+        <div id="sm1" class="tabcontents" style="display: block;">
+          <div id="sm_1">
+            <form action="/setqi" id="sm_step0" style="display: block;">
+              <p4 id="smrmode1"> <strong>quantity of ingredients</strong></p4>
+              <select name="qi" id="pm" onchange="methode()" style="border-color: blue;">
+                <option value="0">select....</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <br><br>
+              <input type="submit" value="NEXT" style="color: blue;">
+            </form>
+            <p5 id="sm_step1" style="display: block;">
+              <form action="/smseq/get">
+                <p3 id="title4" style="background-color: rgb(0, 132, 255);color: rgb(255, 255, 255);">set ratio in gram
+                  or ml</p3>
+                ingredient 1 : <input type="text" pattern="[0-9]*" inputmode="numeric" name="it1"
+                  placeholder="%it1%"><br>ingredient 2 :<input type="text" pattern="[0-9]*" inputmode="numeric"
+                  name="it2" placeholder="%it2%"><br>ingredient 3 :<input type="text" pattern="[0-9]*"
+                  inputmode="numeric" name="it3" placeholder="%it3%"><br>
+                <input id="rm144" type="submit" value="NEXT"
+                  style="border-color: rgb(170, 189, 2);color: darkgoldenrod;">
+              </form>
+            </p5>
+          </div>
+        </div>
+      </div>
+      <!--  ===============NETWORK ============= -->
       <div id="setup" class="tabcontent">
         <!-- <embed type="text/html" src="net.html" style="min-width: 10cm;min-height: 8cm;"> -->
         <p5 id="net">

@@ -239,6 +239,10 @@ void timbang() {
     }
     if (i_gram > water_target)  // red
     {
+      //if mode simple mixing
+      if (qi > 0) {
+        timerVal = second + 5;
+      }
       // red led for overpour
       //  incwater+=waterseq[waterseqCountIndex];
       int b = int(grame);
@@ -300,6 +304,10 @@ void timbang() {
   if (old_sts1 != s_sts1) {
     notifyClients(1, s_sts1);
     if (!noDisplay) {
+      if (smart_pour) {
+        display.setTextSize(1);
+        display.setCursor(2, 126);
+      }
       display.setTextColor(BLACK);
       display.setCursor(2, 56);
       display.print(old_sts1);

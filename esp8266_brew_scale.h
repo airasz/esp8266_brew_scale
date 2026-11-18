@@ -119,10 +119,11 @@ auto wt1 = 0, wt2 = 0, wt3 = 0, wt4 = 0, wt5 = 0;
 auto dr1 = 0, dr2 = 0, dr3 = 0, dr4 = 0, dr5 = 0;
 int wt[] = { 0, 0, 0, 0, 0 };
 int dr[] = { 0, 0, 0, 0, 0 };
+int it[] = { 0, 0, 0, 0, 0 };
 int pourtarget[] = { 0, 0, 0, 0, 0, 0 };
 int timerVal = 45;
 int duration = 30;  // 30
-int cf_t, wt_t, tab, setup_step, pm;
+int cf_t, wt_t, tab, setup_step, sm_setup_step, pm, qi;
 auto countdown1 = 1, countdown2 = 1, countdown3 = 1;
 bool reversepin = 0, OFF, ON;
 auto running = false;

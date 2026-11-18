@@ -240,6 +240,11 @@ void startserver() {
     request->send_P(200, "text/plain", String(setup_step).c_str());
   });
 
+  server.on("/sm_setup_step", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send_P(200, "text/plain", String(sm_setup_step).c_str());
+  });
+
+
   // server.on("/aeration", HTTP_GET, [](AsyncWebServerRequest *request) { request->send_P(200, "text/plain", s_sts2.c_str()); });
   // // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
 
@@ -314,6 +319,44 @@ void setupPort1() {
     // request->send(LittleFS, "/index.html", "", false, processor);
     // writePref();
   });
+  server.on("/setqi", HTTP_GET, [](AsyncWebServerRequest *request) {
+    String inputMessage;
+    String inputParam;
+    // /setpm?pm1=pm2
+    if (request->hasParam("qi")) {
+      inputMessage = request->getParam("qi")->value();
+      inputParam = "rmp1";
+      Serial.print("qi =  ");
+      Serial.println(inputMessage);
+      if (!inputMessage.isEmpty()) {
+
+        qi = inputMessage.toInt();
+        if (qi == 0) {
+          //   NEO.setPixelColor(0, NEO.Color(200, 0, 0));
+          //   NEO.show();
+          beeping(1);  // single beep
+          sm_setup_step = 1;
+          request->redirect("/");
+          delay(30);
+          notifyClients(5, "cannot o ingredient");
+        } else {
+          //   NEO.setPixelColor(0, NEO.Color(0, 200, 0));
+          //   NEO.show();
+          beeping(5);  // single beep
+          // calculate(pm);
+          tab = 2;
+          sm_setup_step = 1;
+
+          request->redirect("/");
+        }
+      }
+
+      Serial.printf("pm=>%d\n ", pm);
+    }
+
+    // request->send(LittleFS, "/index.html", "", false, processor);
+    // writePref();
+  });
   server.on("/seq/get", HTTP_GET, [](AsyncWebServerRequest *request) {
     String inputMessage;
     String inputParam;
@@ -347,6 +390,41 @@ void setupPort1() {
     displayCount = 0;
     water_target = wt[0];
     request->redirect("/");
+    // request->send(LittleFS, "/index.html", "", false, processor);
+    // writePref();
+  });
+  server.on("/smseq/get", HTTP_GET, [](AsyncWebServerRequest *request) {
+    String inputMessage;
+    String inputParam;
+    // rmp1 = 1;
+    // GET input1 value on <ESP_IP>/get?input1=<inputMessage>
+    for (size_t i = 0; i < qi; i++) {
+      String s = String(i + 1);
+      if (request->hasParam("it" + s)) {
+        inputMessage = request->getParam("it" + s)->value();
+        if (!inputMessage.isEmpty()) {
+          wt[i] = inputMessage.toInt();
+          dr[i] = 60;
+        }
+      }
+    }
+
+    //   NEO.setPixelColor(0, NEO.Color(0, 200, 0));
+    //   NEO.show();
+    beeping(5);  // single beep
+    Serial.printf("timeseqindex = %d\n", timeseqIndex);
+    b_increment = 1;  // activated increment water
+    incwater = 0;
+    tab = 0;
+    sm_setup_step = 0;
+    smart_pour = 1;
+    waterseqCountIndex = 0;
+    timerseqCountIndex = 0;
+    displayCount = 0;
+    water_target = wt[0];
+    display.clearDisplay();
+    request->redirect("/");
+
     // request->send(LittleFS, "/index.html", "", false, processor);
     // writePref();
   });

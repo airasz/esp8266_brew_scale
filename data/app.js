@@ -105,6 +105,8 @@ function loadonce() {
     var pstp = "p_step";
     for (let i = 0; i < 3; i++) {
         document.getElementById("p_step" + i).style.display = "none";
+    } for (let i = 0; i < 2; i++) {
+        document.getElementById("sm_step" + i).style.display = "none";
     }
     var setup_step = send_get("/setup_step");
     var iss = parseInt(setup_step);
@@ -164,6 +166,7 @@ function gettab() {
     xhttp.open("GET", "/tab", true);
     xhttp.send();
     getsstep();
+    getsmsstep();
 }
 function tare() {
     websocket.send('tare');
@@ -189,6 +192,25 @@ function getsstep() {
     };
 
     xhttp.open("GET", "/setup_step", true);
+    xhttp.send();
+}
+
+function getsmsstep() {
+    // alert("Page is loaded");
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var stime = this.responseText;
+            var iss = parseInt(stime);
+            // alert(iss);
+            // document.getElementById(iss).click();
+            // for (let i = 0; i < iss + 1; i++) {
+            document.getElementById("sm_step" + iss).style.display = "block";
+            // }
+        }
+    };
+
+    xhttp.open("GET", "/sm_setup_step", true);
     xhttp.send();
 }
 function send_get(url) {
